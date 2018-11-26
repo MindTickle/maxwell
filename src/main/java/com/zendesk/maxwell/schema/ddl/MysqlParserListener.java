@@ -168,6 +168,14 @@ public class MysqlParserListener extends mysqlBaseListener {
 		ColumnDef c = this.columnDefs.removeFirst();
 		alterStatement().columnMods.add(new ChangeColumnMod(oldColumnName, c, getColumnPosition()));
 	}
+
+	@Override
+	public void exitRename_column(mysqlParser.Rename_columnContext ctx) {
+
+		String oldColumnName = unquote(ctx.old_col_name().getText());
+		String newColumnName = unquote(ctx.new_col_name().getText());
+		alterStatement().columnMods.add(new RenameColumnMod(oldColumnName, newColumnName));
+	}
 	@Override
 	public void exitModify_column(mysqlParser.Modify_columnContext ctx) {
 		ColumnDef c = this.columnDefs.removeFirst();

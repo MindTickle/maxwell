@@ -1,0 +1,202 @@
+-- Tables
+DROP DATABASE IF EXISTS TEST;
+CREATE DATABASE TEST;
+use TEST;
+# CREATE TABLE employees ( id int NOT NULL, name varchar(255) );
+CREATE TABLE employees ( id int NOT NULL, name varchar(255), address varchar(255));
+ALTER TABLE employees RENAME users;
+ALTER TABLE users ADD COLUMN address2 varchar(10) AFTER name;
+ALTER TABLE users ADD date TIMESTAMP;
+ALTER TABLE users ADD INDEX (id);
+ALTER TABLE users ADD uid INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE (uid);
+ALTER TABLE users MODIFY address VARCHAR(255);
+ALTER TABLE users ALTER address SET DEFAULT 'unknown';
+
+ALTER TABLE users CHANGE COLUMN  address address1 varchar(255);
+ALTER TABLE users RENAME COLUMN  address1 TO  address;
+INSERT INTO users (id, name, address) VALUE (11, "testing", "again testing");
+ALTER TABLE users DROP COLUMN address;
+
+DROP DATABASE TEST;
+
+-- Partitioning
+DROP DATABASE IF EXISTS TEST;
+CREATE DATABASE TEST;
+use TEST;
+
+CREATE TABLE ti (id INT, amount DECIMAL(7,2), tr_date DATE)
+  ENGINE=INNODB
+  PARTITION BY HASH( MONTH(tr_date) )
+  PARTITIONS 6;
+
+CREATE TABLE members (
+  firstname VARCHAR(25) NOT NULL,
+  lastname VARCHAR(25) NOT NULL,
+  username VARCHAR(16) NOT NULL,
+  email VARCHAR(35),
+  joined DATE NOT NULL
+)
+  PARTITION BY RANGE( YEAR(joined) ) (
+  PARTITION p0 VALUES LESS THAN (1960),
+  PARTITION p1 VALUES LESS THAN (1970),
+  PARTITION p2 VALUES LESS THAN (1980),
+  PARTITION p3 VALUES LESS THAN (1990),
+  PARTITION p4 VALUES LESS THAN MAXVALUE
+  );
+
+DROP TABLE members;
+
+CREATE TABLE rc2 (
+  a INT,
+  b INT
+)
+  PARTITION BY RANGE COLUMNS(a,b) (
+  PARTITION p0 VALUES LESS THAN (0,10),
+  PARTITION p1 VALUES LESS THAN (10,20),
+  PARTITION p2 VALUES LESS THAN (10,30),
+  PARTITION p3 VALUES LESS THAN (MAXVALUE,MAXVALUE)
+  );
+
+CREATE TABLE employees (
+  id INT NOT NULL,
+  fname VARCHAR(30),
+  lname VARCHAR(30),
+  hired DATE NOT NULL DEFAULT '1970-01-01',
+  separated DATE NOT NULL DEFAULT '9999-12-31',
+  job_code INT,
+  store_id INT
+)
+  PARTITION BY LIST(store_id) (
+  PARTITION pNorth VALUES IN (3,5,6,9,17),
+  PARTITION pEast VALUES IN (1,2,10,11,19,20),
+  PARTITION pWest VALUES IN (4,12,13,14,18),
+  PARTITION pCentral VALUES IN (7,8,15,16)
+  );
+
+ALTER TABLE employees PARTITION BY RANGE COLUMNS (lname)  (
+PARTITION p0 VALUES LESS THAN ('g'),
+PARTITION p1 VALUES LESS THAN ('m'),
+PARTITION p2 VALUES LESS THAN ('t'),
+PARTITION p3 VALUES LESS THAN (MAXVALUE)
+);
+
+CREATE TABLE employees1 (
+  id INT NOT NULL,
+  fname VARCHAR(30),
+  lname VARCHAR(30),
+  hired DATE NOT NULL DEFAULT '1970-01-01',
+  separated DATE NOT NULL DEFAULT '9999-12-31',
+  job_code INT,
+  store_id INT
+)
+  PARTITION BY LINEAR HASH(store_id)
+  PARTITIONS 4;
+
+
+CREATE TABLE k1 (
+  id INT NOT NULL,
+  name VARCHAR(20),
+  UNIQUE KEY (id)
+)
+  PARTITION BY KEY()
+  PARTITIONS 2;
+
+CREATE TABLE tk (
+  col1 INT NOT NULL,
+  col2 CHAR(5),
+  col3 DATE
+)
+  PARTITION BY LINEAR KEY (col1)
+  PARTITIONS 3;
+
+CREATE TABLE ts (id INT, purchased DATE)
+  PARTITION BY RANGE( YEAR(purchased) )
+  SUBPARTITION BY HASH( TO_DAYS(purchased) )
+  SUBPARTITIONS 2 (
+  PARTITION p0 VALUES LESS THAN (1990),
+  PARTITION p1 VALUES LESS THAN (2000),
+  PARTITION p2 VALUES LESS THAN MAXVALUE
+  );
+
+
+CREATE TABLE ts1 (id INT, purchased DATE)
+  PARTITION BY RANGE( YEAR(purchased) )
+  SUBPARTITION BY HASH( TO_DAYS(purchased) ) (
+  PARTITION p0 VALUES LESS THAN (1990) (
+    SUBPARTITION s0,
+    SUBPARTITION s1
+  ),
+  PARTITION p1 VALUES LESS THAN (2000) (
+    SUBPARTITION s2,
+    SUBPARTITION s3
+  ),
+  PARTITION p2 VALUES LESS THAN MAXVALUE (
+    SUBPARTITION s4,
+    SUBPARTITION s5
+  )
+  );
+
+CREATE TABLE members (
+  id INT,
+  fname VARCHAR(25),
+  lname VARCHAR(25),
+  dob DATE
+)
+  PARTITION BY RANGE( YEAR(dob) ) (
+  PARTITION p0 VALUES LESS THAN (1980),
+  PARTITION p1 VALUES LESS THAN (1990),
+  PARTITION p2 VALUES LESS THAN (2000)
+  );
+
+ALTER TABLE members ADD PARTITION (PARTITION p3 VALUES LESS THAN (2010));
+
+CREATE TABLE tt (
+  id INT,
+  data INT
+)
+  PARTITION BY LIST(data) (
+  PARTITION p0 VALUES IN (5, 10, 15),
+  PARTITION p1 VALUES IN (6, 12, 18)
+  );
+
+ALTER TABLE tt ADD PARTITION (PARTITION p2 VALUES IN (7, 14, 21));
+
+
+CREATE TABLE e (
+  id INT NOT NULL,
+  fname VARCHAR(30),
+  lname VARCHAR(30)
+)
+  PARTITION BY RANGE (id) (
+  PARTITION p0 VALUES LESS THAN (50),
+  PARTITION p1 VALUES LESS THAN (100),
+  PARTITION p2 VALUES LESS THAN (150),
+  PARTITION p3 VALUES LESS THAN (MAXVALUE)
+  );
+
+INSERT INTO e VALUES
+                     (1669, "Jim", "Smith"),
+                     (337, "Mary", "Jones"),
+                     (16, "Frank", "White"),
+                     (2005, "Linda", "Black");
+
+CREATE TABLE e2 LIKE e;
+ALTER TABLE e2 REMOVE PARTITIONING;
+
+ALTER TABLE e EXCHANGE PARTITION p0 WITH TABLE e2;
+
+-- Data Types
+DROP DATABASE IF EXISTS TEST;
+CREATE DATABASE TEST;
+use TEST;
+
+CREATE TABLE facts (sentence JSON);
+INSERT INTO facts VALUES (JSON_OBJECT("mascot", "Our mascot is a dolphin named \"Sakila\"."));
+
+CREATE TABLE myset (col SET('a', 'b', 'c', 'd'));
+INSERT INTO myset (col) VALUES ('a,d'), ('d,a'), ('a,d,a'), ('a,d,d'), ('d,a,d');
+
+CREATE TABLE shirts (
+  name VARCHAR(40),
+  size ENUM('x-small', 'small', 'medium', 'large', 'x-large')
+);

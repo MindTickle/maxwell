@@ -12,6 +12,7 @@ alter_specification:
   add_column
   | add_column_parens
   | change_column
+  | rename_column
   | drop_column
   | modify_column
   | drop_key
@@ -27,8 +28,10 @@ alter_specification:
 add_column: ADD COLUMN? column_definition col_position?;
 add_column_parens: ADD COLUMN? '(' (column_definition|index_definition) (',' (column_definition|index_definition))* ')';
 change_column: CHANGE COLUMN? old_col_name column_definition col_position?;
-drop_column: DROP COLUMN? old_col_name CASCADE?;
+rename_column: RENAME COLUMN? old_col_name TO new_col_name;
   old_col_name: name;
+  new_col_name: name;
+drop_column: DROP COLUMN? old_col_name CASCADE?;
 modify_column: MODIFY COLUMN? column_definition col_position?;
 drop_key: DROP FOREIGN? (INDEX|KEY) name;
 drop_primary_key: DROP PRIMARY KEY;
