@@ -170,8 +170,8 @@ public class Maxwell implements Runnable {
 	private void startInner() throws Exception {
 		try ( Connection connection = this.context.getReplicationConnection();
 		      Connection rawConnection = this.context.getRawMaxwellConnection() ) {
-			MaxwellMysqlStatus.ensureReplicationMysqlState(connection);
-			MaxwellMysqlStatus.ensureMaxwellMysqlState(rawConnection);
+			MaxwellMysqlStatus.ensureReplicationMysqlState(connection);//
+			MaxwellMysqlStatus.ensureMaxwellMysqlState(rawConnection);//
 			if (config.gtidMode) {
 				MaxwellMysqlStatus.ensureGtidMysqlState(connection);
 			}
@@ -186,7 +186,7 @@ public class Maxwell implements Runnable {
 		AbstractProducer producer = this.context.getProducer();
 		AbstractBootstrapper bootstrapper = this.context.getBootstrapper();
 
-		Position initPosition = getInitialPosition();
+		Position initPosition = getInitialPosition();//
 		logBanner(producer, initPosition);
 		this.context.setPosition(initPosition);
 

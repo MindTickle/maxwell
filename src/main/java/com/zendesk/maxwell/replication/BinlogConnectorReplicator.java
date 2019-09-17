@@ -147,7 +147,7 @@ public class BinlogConnectorReplicator extends RunLoopProcess implements Replica
 	 * This is the top-level function in the run-loop.
 	 */
 	public void work() throws Exception {
-		RowMap row = getRow();
+		RowMap row = getRow();//
 
 		if ( row == null )
 			return;

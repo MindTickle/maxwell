@@ -26,7 +26,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 
 public class RowMap implements Serializable {
 
-	public enum KeyFormat { HASH, ARRAY }
+	public enum KeyFormat { HASH, ARRAY }//
 
 	static final Logger LOGGER = LoggerFactory.getLogger(RowMap.class);
 
@@ -47,6 +47,7 @@ public class RowMap implements Serializable {
 	private Long serverId;
 	private Long threadId;
 	private Long schemaId;
+	private String collectionId;
 
 	private final LinkedHashMap<String, Object> data;
 	private final LinkedHashMap<String, Object> oldData;
@@ -125,6 +126,7 @@ public class RowMap implements Serializable {
 		this.pkColumns = pkColumns;
 		this.suppressed = false;
 		this.approximateSize = 100L; // more or less 100 bytes of overhead
+		this.collectionId = table;
 	}
 
 	public RowMap(String type, String database, String table, Long timestampMillis, List<String> pkColumns,
@@ -499,6 +501,10 @@ public class RowMap implements Serializable {
 
 	public String getRowType() {
 		return this.rowType;
+	}
+
+	public String getCollectionId() {
+		return this.collectionId;
 	}
 
 	// determines whether there is anything for the producer to output

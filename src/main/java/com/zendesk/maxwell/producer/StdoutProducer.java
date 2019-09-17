@@ -10,7 +10,7 @@ public class StdoutProducer extends AbstractProducer {
 
 	@Override
 	public void push(RowMap r) throws Exception {
-		String output = r.toJSON(outputConfig);
+		String output = r.toJSON(outputConfig);//
 
 		if ( output != null && r.shouldOutput(outputConfig) )
 			System.out.println(output);
