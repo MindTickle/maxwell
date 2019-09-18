@@ -280,6 +280,7 @@ public class RowMap implements Serializable {
 		}
 
 		g.writeStringField(FieldNames.TYPE, this.rowType);
+		g.writeStringField(FieldNames.COLLECTION_ID, this.collectionId);
 		g.writeNumberField(FieldNames.TIMESTAMP, this.timestampSeconds);
 
 		if ( outputConfig.includesCommitInfo ) {
