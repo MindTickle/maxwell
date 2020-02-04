@@ -29,10 +29,10 @@ public class FieldNames {
 	public static final String PRIMARY_KEY_COLUMNS = "primary_key_columns";
 	public static final String REASON = "reason";
 	public static final String COMMENT = "comment";
-	public static final String COLLECTION_ID = "collection_id";
+	public static final String TICKLEDB_CDC_SRC_ID = "tickledb_cdc_source_id";
 
 	private static List<String> fieldNamesList = Arrays.asList(COMMIT, DATA, DATABASE,
-	GTID, OLD, POSITION, PRIMARY_KEY, PRIMARY_KEY_COLUMNS, QUERY, SERVER_ID, TABLE, THREAD_ID, TIMESTAMP, TRANSACTION_ID, TYPE, UUID, COMMENT, COLLECTION_ID);
+	GTID, OLD, POSITION, PRIMARY_KEY, PRIMARY_KEY_COLUMNS, QUERY, SERVER_ID, TABLE, THREAD_ID, TIMESTAMP, TRANSACTION_ID, TYPE, UUID, COMMENT, TICKLEDB_CDC_SRC_ID);
 
 	private static final Set<String> fieldNamesSet = new HashSet<>(fieldNamesList);
 
