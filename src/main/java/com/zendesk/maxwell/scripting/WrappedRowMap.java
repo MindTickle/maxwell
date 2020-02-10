@@ -32,8 +32,8 @@ public class WrappedRowMap {
 		return row.getRowType();
 	}
 
-	public String getTickledbCdcSourceId() {
-		return row.getTickledbCdcSourceId();
+	public String getCollectionId() {
+		return row.getCollectionId();
 	}
 
 	public String getTable() {
