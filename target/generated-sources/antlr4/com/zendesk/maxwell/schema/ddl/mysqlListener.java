@@ -39,6 +39,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 */
 	void exitTokens_available_for_names(mysqlParser.Tokens_available_for_namesContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysqlParser#all_tokens}.
+	 * @param ctx the parse tree
+	 */
+	void enterAll_tokens(mysqlParser.All_tokensContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#all_tokens}.
+	 * @param ctx the parse tree
+	 */
+	void exitAll_tokens(mysqlParser.All_tokensContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysqlParser#skip_parens}.
 	 * @param ctx the parse tree
 	 */
@@ -99,6 +109,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 */
 	void exitName(mysqlParser.NameContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysqlParser#name_all_tokens}.
+	 * @param ctx the parse tree
+	 */
+	void enterName_all_tokens(mysqlParser.Name_all_tokensContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#name_all_tokens}.
+	 * @param ctx the parse tree
+	 */
+	void exitName_all_tokens(mysqlParser.Name_all_tokensContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysqlParser#id}.
 	 * @param ctx the parse tree
 	 */
@@ -118,6 +138,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(mysqlParser.LiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#literal_with_weirdo_multistring}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteral_with_weirdo_multistring(mysqlParser.Literal_with_weirdo_multistringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#literal_with_weirdo_multistring}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteral_with_weirdo_multistring(mysqlParser.Literal_with_weirdo_multistringContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#float_literal}.
 	 * @param ctx the parse tree
@@ -148,6 +178,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitString_literal(mysqlParser.String_literalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#byte_literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterByte_literal(mysqlParser.Byte_literalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#byte_literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitByte_literal(mysqlParser.Byte_literalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#string}.
 	 * @param ctx the parse tree
@@ -378,6 +418,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConvert_to_character_set(mysqlParser.Convert_to_character_setContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#rename_column}.
+	 * @param ctx the parse tree
+	 */
+	void enterRename_column(mysqlParser.Rename_columnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#rename_column}.
+	 * @param ctx the parse tree
+	 */
+	void exitRename_column(mysqlParser.Rename_columnContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#alter_partition_specification}.
 	 * @param ctx the parse tree
@@ -1148,6 +1198,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIndex_constraint(mysqlParser.Index_constraintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#constraint_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstraint_name(mysqlParser.Constraint_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#constraint_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstraint_name(mysqlParser.Constraint_nameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#index_name}.
 	 * @param ctx the parse tree

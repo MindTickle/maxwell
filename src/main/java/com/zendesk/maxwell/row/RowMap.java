@@ -44,7 +44,7 @@ public class RowMap implements Serializable {
 	private Long serverId;
 	private Long threadId;
 	private Long schemaId;
-	private String collectionId;
+	private String tickledbCdcSourceId;
 
 	private final LinkedHashMap<String, Object> data;
 	private final LinkedHashMap<String, Object> oldData;
@@ -72,7 +72,7 @@ public class RowMap implements Serializable {
 		this.pkColumns = pkColumns;
 		this.suppressed = false;
 		this.approximateSize = 100L; // more or less 100 bytes of overhead
-		this.collectionId = table;
+		this.tickledbCdcSourceId = database + "." + table;
 	}
 
 	public RowMap(String type, String database, String table, Long timestampMillis, List<String> pkColumns,
@@ -143,7 +143,7 @@ public class RowMap implements Serializable {
 
 		g.writeStringField(FieldNames.DATABASE, this.database);
 		g.writeStringField(FieldNames.TABLE, this.table);
-		g.writeStringField(FieldNames.COLLECTION_ID, this.collectionId);
+		g.writeStringField(FieldNames.TICKLEDB_CDC_SRC_ID, this.tickledbCdcSourceId);
 
 		if ( outputConfig.includesRowQuery && this.rowQuery != null) {
 			g.writeStringField(FieldNames.QUERY, this.rowQuery);
@@ -380,8 +380,8 @@ public class RowMap implements Serializable {
 		return this.rowType;
 	}
 
-	public String getCollectionId() {
-		return this.collectionId;
+	public String getTickledbCdcSourceId() {
+		return this.tickledbCdcSourceId;
 	}
 
 	// determines whether there is anything for the producer to output
