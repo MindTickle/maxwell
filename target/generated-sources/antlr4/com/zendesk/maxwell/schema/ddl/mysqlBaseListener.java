@@ -53,6 +53,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAll_tokens(mysqlParser.All_tokensContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAll_tokens(mysqlParser.All_tokensContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSkip_parens(mysqlParser.Skip_parensContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -125,6 +137,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterName_all_tokens(mysqlParser.Name_all_tokensContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitName_all_tokens(mysqlParser.Name_all_tokensContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterId(mysqlParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -144,6 +168,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteral(mysqlParser.LiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLiteral_with_weirdo_multistring(mysqlParser.Literal_with_weirdo_multistringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteral_with_weirdo_multistring(mysqlParser.Literal_with_weirdo_multistringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -180,6 +216,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitString_literal(mysqlParser.String_literalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterByte_literal(mysqlParser.Byte_literalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitByte_literal(mysqlParser.Byte_literalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -456,6 +504,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConvert_to_character_set(mysqlParser.Convert_to_character_setContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRename_column(mysqlParser.Rename_columnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRename_column(mysqlParser.Rename_columnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1380,6 +1440,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIndex_constraint(mysqlParser.Index_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstraint_name(mysqlParser.Constraint_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstraint_name(mysqlParser.Constraint_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
