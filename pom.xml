@@ -4,7 +4,7 @@
 
   <groupId>com.zendesk</groupId>
   <artifactId>maxwell</artifactId>
-  <version>1.24.1</version>
+  <version>${env.VERSION}</version>
   <packaging>jar</packaging>
 
   <name>maxwell</name>
@@ -383,6 +383,14 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>com.zendesk.maxwell.Maxwell</mainClass>
+            </manifest>
+          </archive>
           <appendAssemblyId>false</appendAssemblyId>
           <tarLongFileMode>posix</tarLongFileMode>
           <descriptors>
@@ -391,6 +399,7 @@
         </configuration>
         <executions>
           <execution>
+            <id>make-assembly</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
