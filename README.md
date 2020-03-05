@@ -42,3 +42,15 @@ benefits of event sourcing without having to re-architect your entire platform.
     "old":  {"daemon": "Stanislaw Lem"}
   }
 ```
+
+Usage:
+1. Using docker- http://maxwells-daemon.io/quickstart/
+2. Using jar- locate the maxwell-[version].jar file in target directory. 
+Sample usage
+```
+java -jar maxwell-1.19.2.jar --user=root --password=rootroot --host=localhost --client_id='maxwellv0.2' --replica_server_id=154 --producer=stdout --output_ddl=true --gtid_mode=ON --metrics_type=jmx,http --http_diagnostic=true --http_port=8082 --init_position=binlog.000004:9423
+```
+
+Compilation:
+1. To produce a new jar, change the version in pom.xml and run ```mvn clean package```. 
+You may have to remove test files for this step to succeed
