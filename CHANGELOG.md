@@ -1,5 +1,24 @@
 # Maxwell changelog
 
+### [v1.25.0](https://github.com/zendesk/maxwell/releases/tag/v1.25.0): "mah mah mah my corona.  I'm sorry.  I'm sorry."
+
+
+- swap un-maintained snaq.db with C3P0.
+- support eu datadog metrics
+- protect against lost connections during key queries (bootstrapping,
+      heartbeats, postition setting)
+
+
+### [v1.24.2](https://github.com/zendesk/maxwell/releases/tag/v1.24.2): "#shelterinstyle"
+
+
+- bugfix parsing errors: compressed columns, exchange partitions,
+  parenthesis-enclosed default values, `drop column foo.t`.
+- add partition-by-random feature.
+- update jackson-databind to get security patch
+- fix redis channel interpolation on RPUSH
+
+
 ### [v1.24.1](https://github.com/zendesk/maxwell/releases/tag/v1.24.1): "pixies in my head all damn week"
 
 
