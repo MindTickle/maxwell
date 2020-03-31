@@ -143,7 +143,7 @@ public class RowMap implements Serializable {
 
 		g.writeStringField(FieldNames.DATABASE, this.database);
 		g.writeStringField(FieldNames.TABLE, this.table);
-		g.writeStringField(FieldNames.TICKLEDB_CDC_SRC_ID, this.tickledbCdcSourceId);
+//		g.writeStringField(FieldNames.TICKLEDB_CDC_SRC_ID, this.tickledbCdcSourceId);
 
 		if ( outputConfig.includesRowQuery && this.rowQuery != null) {
 			g.writeStringField(FieldNames.QUERY, this.rowQuery);

@@ -1,0 +1,621 @@
+-------------------------------------------------------------------------------
+Test set: com.zendesk.maxwell.BootstrapIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 25, Failures: 10, Errors: 0, Skipped: 1, Time elapsed: 181.459 sec <<< FAILURE!
+testMultipleRowBootstrap(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.369 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, type=insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, type=insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=maxwell, table=bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, is_complete=0, inserted_rows=0, binlog_position=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, where_clause=null, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=shard_1, table=minimal, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testMultipleRowBootstrap(BootstrapIntegrationTest.java:31)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBootstrapIsWhitelisted(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.375 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, type=insert, data={database_name=shard_1, inserted_rows=0, total_rows=0, binlog_position=0, id=1, is_complete=0, table_name=minimal, created_at=null, started_at=null, completed_at=null, binlog_file=null, where_clause=null, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testBootstrapIsWhitelisted(BootstrapIntegrationTest.java:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBootstrapOnSeparateServer(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 7.858 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_other, table=other, type=bootstrap-insert, data={id=1}}
+
+ in:
+{database=test_other, table=other, tickledb_cdc_source_id=test_other.other, type=bootstrap-start, data={}}
+{database=test_other, table=other, tickledb_cdc_source_id=test_other.other, type=bootstrap-insert, data={id=1}}
+{database=test_other, table=other, tickledb_cdc_source_id=test_other.other, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testBootstrapOnSeparateServer(BootstrapIntegrationTest.java:86)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBootstrapNullValues(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.29 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=null_bootstraps, type=bootstrap-start, data={}}
+{database=shard_1, table=null_bootstraps, type=bootstrap-insert, data={id=1, txt=null}}
+{database=shard_1, table=null_bootstraps, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=null_bootstraps, tickledb_cdc_source_id=shard_1.null_bootstraps, type=insert, data={id=1, txt=null}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=null_bootstraps, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=null_bootstraps, tickledb_cdc_source_id=shard_1.null_bootstraps, type=bootstrap-start, data={}}
+{database=shard_1, table=null_bootstraps, tickledb_cdc_source_id=shard_1.null_bootstraps, type=bootstrap-insert, data={id=1, txt=null}}
+{database=shard_1, table=null_bootstraps, tickledb_cdc_source_id=shard_1.null_bootstraps, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testBootstrapNullValues(BootstrapIntegrationTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testNoPkTableBootstrap(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.292 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=1, text_field=hello}}
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=2, text_field=bonjour}}
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=3, text_field=goeiedag}}
+{database=shard_1, table=table_no_pk, type=bootstrap-start, data={}}
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=1, text_field=hello}}
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=2, text_field=bonjour}}
+{database=shard_1, table=table_no_pk, type=bootstrap-insert, data={account_id=3, text_field=goeiedag}}
+{database=shard_1, table=table_no_pk, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=insert, data={account_id=1, text_field=hello}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=insert, data={account_id=2, text_field=bonjour}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=insert, data={account_id=3, text_field=goeiedag}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=table_no_pk, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=bootstrap-start, data={}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=bootstrap-insert, data={account_id=1, text_field=hello}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=bootstrap-insert, data={account_id=2, text_field=bonjour}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=bootstrap-insert, data={account_id=3, text_field=goeiedag}}
+{database=shard_1, table=table_no_pk, tickledb_cdc_source_id=shard_1.table_no_pk, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testNoPkTableBootstrap(BootstrapIntegrationTest.java:41)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testMultipleTablesBootstrap(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.31 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=1, txt=txt1}}
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=2, txt=txt2}}
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=3, txt=txt3}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=1, txt=txt4}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=2, txt=txt5}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=3, txt=txt6}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=1, txt=txt7}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=2, txt=txt8}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=3, txt=txt9}}
+{database=shard_1, table=table1, type=bootstrap-start, data={}}
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=1, txt=txt1}}
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=2, txt=txt2}}
+{database=shard_1, table=table1, type=bootstrap-insert, data={id=3, txt=txt3}}
+{database=shard_1, table=table1, type=bootstrap-complete, data={}}
+{database=shard_1, table=table2, type=bootstrap-start, data={}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=1, txt=txt4}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=2, txt=txt5}}
+{database=shard_1, table=table2, type=bootstrap-insert, data={id=3, txt=txt6}}
+{database=shard_1, table=table2, type=bootstrap-complete, data={}}
+{database=shard_1, table=table3, type=bootstrap-start, data={}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=1, txt=txt7}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=2, txt=txt8}}
+{database=shard_1, table=table3, type=bootstrap-insert, data={id=3, txt=txt9}}
+{database=shard_1, table=table3, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=insert, data={id=1, txt=txt1}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=insert, data={id=2, txt=txt2}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=insert, data={id=3, txt=txt3}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=insert, data={id=1, txt=txt4}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=insert, data={id=2, txt=txt5}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=insert, data={id=3, txt=txt6}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=insert, data={id=1, txt=txt7}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=insert, data={id=2, txt=txt8}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=insert, data={id=3, txt=txt9}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=table1, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=2, database_name=shard_1, table_name=table2, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=3, database_name=shard_1, table_name=table3, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=bootstrap-start, data={}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=bootstrap-insert, data={id=1, txt=txt1}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=bootstrap-insert, data={id=2, txt=txt2}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=bootstrap-insert, data={id=3, txt=txt3}}
+{database=shard_1, table=table1, tickledb_cdc_source_id=shard_1.table1, type=bootstrap-complete, data={}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=bootstrap-start, data={}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=bootstrap-insert, data={id=1, txt=txt4}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=bootstrap-insert, data={id=2, txt=txt5}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=bootstrap-insert, data={id=3, txt=txt6}}
+{database=shard_1, table=table2, tickledb_cdc_source_id=shard_1.table2, type=bootstrap-complete, data={}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=bootstrap-start, data={}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=bootstrap-insert, data={id=1, txt=txt7}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=bootstrap-insert, data={id=2, txt=txt8}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=bootstrap-insert, data={id=3, txt=txt9}}
+{database=shard_1, table=table3, tickledb_cdc_source_id=shard_1.table3, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testMultipleTablesBootstrap(BootstrapIntegrationTest.java:46)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testSingleRowBootstrap(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.269 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, type=insert, data={database_name=shard_1, inserted_rows=0, total_rows=0, binlog_position=0, id=1, is_complete=0, table_name=minimal, created_at=null, started_at=null, completed_at=null, binlog_file=null, where_clause=null, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testSingleRowBootstrap(BootstrapIntegrationTest.java:21)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testMultipleRowBootstrapWithWhereclause(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.236 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=maxwell, table=bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, is_complete=0, inserted_rows=0, binlog_position=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, where_clause=id > 1, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, type=bootstrap-insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=shard_1, table=minimal, type=bootstrap-complete, data={}}
+
+ in:
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, where_clause=id > 1, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-start, data={}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=2, account_id=2, text_field=bonjour}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, data={id=3, account_id=3, text_field=goeiedag}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testMultipleRowBootstrapWithWhereclause(BootstrapIntegrationTest.java:36)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBootstrapJSFilters(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.503 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=bootstrap_js, type=bootstrap-insert, data={id=1, a=ABCDEF}}
+
+ in:
+{database=shard_1, table=bootstrap_js, tickledb_cdc_source_id=shard_1.bootstrap_js, type=insert, data={id=1, a=ABCDEF}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=bootstrap_js, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=null}}
+{database=shard_1, table=bootstrap_js, tickledb_cdc_source_id=shard_1.bootstrap_js, type=bootstrap-start, data={}}
+{database=shard_1, table=bootstrap_js, tickledb_cdc_source_id=shard_1.bootstrap_js, type=bootstrap-insert, data={id=1, a=ABCDEF}}
+{database=shard_1, table=bootstrap_js, tickledb_cdc_source_id=shard_1.bootstrap_js, type=bootstrap-complete, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testBootstrapJSFilters(BootstrapIntegrationTest.java:70)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBootstrapWithComment(com.zendesk.maxwell.BootstrapIntegrationTest)  Time elapsed: 2.243 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=shard_1, table=minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, type=insert, data={database_name=shard_1, inserted_rows=0, total_rows=0, binlog_position=0, id=1, is_complete=0, table_name=minimal, created_at=null, started_at=null, completed_at=null, binlog_file=null, where_clause=null, client_id=maxwell, comment=some text}}
+{database=shard_1, table=minimal, type=bootstrap-start, comment=some text, data={}}
+{database=shard_1, table=minimal, type=bootstrap-insert, comment=some text, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, type=bootstrap-complete, comment=some text, data={}}
+
+ in:
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=insert, data={id=1, account_id=1, text_field=hello}}
+{database=maxwell, table=bootstrap, tickledb_cdc_source_id=maxwell.bootstrap, type=insert, data={id=1, database_name=shard_1, table_name=minimal, where_clause=null, is_complete=0, inserted_rows=0, total_rows=0, created_at=null, started_at=null, completed_at=null, binlog_file=null, binlog_position=0, client_id=maxwell, comment=some text}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-start, comment=some text, data={}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-insert, comment=some text, data={id=1, account_id=1, text_field=hello}}
+{database=shard_1, table=minimal, tickledb_cdc_source_id=shard_1.minimal, type=bootstrap-complete, comment=some text, data={}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.BootstrapIntegrationTest.testBootstrapWithComment(BootstrapIntegrationTest.java:26)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+

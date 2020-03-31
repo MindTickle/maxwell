@@ -359,16 +359,6 @@ public interface mysqlListener extends ParseTreeListener {
 	 */
 	void exitDrop_column(mysqlParser.Drop_columnContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link mysqlParser#old_col_name}.
-	 * @param ctx the parse tree
-	 */
-	void enterOld_col_name(mysqlParser.Old_col_nameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link mysqlParser#old_col_name}.
-	 * @param ctx the parse tree
-	 */
-	void exitOld_col_name(mysqlParser.Old_col_nameContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link mysqlParser#modify_column}.
 	 * @param ctx the parse tree
 	 */
@@ -498,6 +488,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAlter_ordering_column(mysqlParser.Alter_ordering_columnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#full_column_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterFull_column_name(mysqlParser.Full_column_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#full_column_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitFull_column_name(mysqlParser.Full_column_nameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#column_definition}.
 	 * @param ctx the parse tree

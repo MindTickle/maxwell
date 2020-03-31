@@ -25,6 +25,7 @@ com/zendesk/maxwell/replication/BinlogConnectorLifecycleListener.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$IntegerContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Change_columnContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Index_constraintContext.class
+com/zendesk/maxwell/util/C3P0ConnectionPool.class
 com/zendesk/maxwell/util/TaskManager.class
 com/zendesk/maxwell/schema/columndef/DecimalColumnDef.class
 com/zendesk/maxwell/producer/SQSCallback.class
@@ -195,7 +196,6 @@ com/zendesk/maxwell/bootstrap/SynchronousBootstrapper.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Partition_definitionsContext.class
 com/zendesk/maxwell/producer/RabbitmqProducer.class
 com/zendesk/maxwell/bootstrap/MaxwellBootstrapUtility.class
-com/zendesk/maxwell/schema/ddl/mysqlParser$Old_col_nameContext.class
 com/zendesk/maxwell/producer/AbstractProducer.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Reference_definition_on_updateContext.class
 com/zendesk/maxwell/producer/InflightMessageList$InflightMessage.class
@@ -225,6 +225,7 @@ com/zendesk/maxwell/filtering/Filter.class
 com/zendesk/maxwell/filtering/InvalidFilterException.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$User_tokenContext.class
 com/zendesk/maxwell/producer/FileProducer.class
+com/zendesk/maxwell/util/ConnectionPool.class
 com/zendesk/maxwell/scripting/Scripting.class
 com/zendesk/maxwell/recovery/RecoverySchemaStore.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Index_type_5Context.class
@@ -279,6 +280,7 @@ com/zendesk/maxwell/schema/columndef/GeometryColumnDef.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Index_type_checkContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Reference_definitionContext.class
 com/zendesk/maxwell/errors/DuplicateProcessException.class
+com/zendesk/maxwell/schema/ddl/mysqlParser$Full_column_nameContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Tokens_available_for_namesContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Long_flagContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Creation_character_setContext.class
@@ -312,6 +314,7 @@ com/zendesk/maxwell/producer/MaxwellSQSProducer.class
 com/zendesk/maxwell/bootstrap/MaxwellBootstrapUtility$1.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Creation_stats_sample_pagesContext.class
 com/zendesk/maxwell/MaxwellCompatibilityError.class
+com/zendesk/maxwell/util/ConnectionPool$RetryableSQLFunction.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Column_definitionContext.class
 com/zendesk/maxwell/schema/ddl/mysqlParser$Charset_nameContext.class
 com/zendesk/maxwell/schema/ddl/ColumnPosition$1.class

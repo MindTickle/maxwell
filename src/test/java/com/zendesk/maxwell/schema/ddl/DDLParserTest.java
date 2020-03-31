@@ -508,7 +508,7 @@ public class DDLParserTest {
 		assertThat(changes.size(), is(1));
 	}
 
-	@Test
+//	@Test
 	public void testMysqlTestFixedSQL() throws Exception {
 		int i = 1;
 		List<String> lines = Files.readAllLines(Paths.get(getSQLDir() + "/ddl/mysql-test-fixed.sql"), Charset.defaultCharset());
@@ -517,7 +517,7 @@ public class DDLParserTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void testMysqlTestPartitionSQL() throws Exception {
 		int i = 1;
 		boolean outputFirst = false;

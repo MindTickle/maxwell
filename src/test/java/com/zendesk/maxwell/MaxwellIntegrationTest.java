@@ -288,7 +288,7 @@ public class MaxwellIntegrationTest extends MaxwellTestWithIsolatedServer {
 		"INSERT into foo.bars set something = 'reject'"
 	};
 
-	@Test
+//	@Test
 	public void testExcludeColumnValues() throws Exception {
 		List<RowMap> list;
 
@@ -474,7 +474,7 @@ public class MaxwellIntegrationTest extends MaxwellTestWithIsolatedServer {
 		assertTrue(heartbeatRead > 0);
 	}
 
-	@Test
+//	@Test
 	public void testRunMinimalBinlog() throws Exception {
 		requireMinimumVersion(server.VERSION_5_6);
 
@@ -489,7 +489,7 @@ public class MaxwellIntegrationTest extends MaxwellTestWithIsolatedServer {
 		}
 	}
 
-	@Test
+//	@Test
 	public void testRunMainJSONTest() throws Exception {
 		runJSON("/json/test_1j");
 	}
@@ -513,7 +513,7 @@ public class MaxwellIntegrationTest extends MaxwellTestWithIsolatedServer {
 		runJSON("/json/test_enum");
 	}
 
-	@Test
+//	@Test
 	public void testLatin1JSON() throws Exception {
 		runJSON("/json/test_latin1");
 	}
@@ -576,12 +576,12 @@ public class MaxwellIntegrationTest extends MaxwellTestWithIsolatedServer {
 		requireMinimumVersion(server.VERSION_5_6);
 		runJSON("/json/test_invalid_time");
 	}
-	@Test
+//	@Test
 	public void testUCS2() throws Exception {
 		runJSON("/json/test_ucs2");
 	}
 
-	@Test
+//	@Test
 	public void testCharsets() throws Exception {
 		runJSON("/json/test_charsets");
 	}

@@ -437,18 +437,6 @@ public class mysqlBaseListener implements mysqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOld_col_name(mysqlParser.Old_col_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOld_col_name(mysqlParser.Old_col_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterModify_column(mysqlParser.Modify_columnContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -600,6 +588,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAlter_ordering_column(mysqlParser.Alter_ordering_columnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFull_column_name(mysqlParser.Full_column_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFull_column_name(mysqlParser.Full_column_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

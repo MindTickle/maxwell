@@ -53,6 +53,11 @@ public class RecoverySchemaStore implements SchemaStore {
 	}
 
 	@Override
+	public List<ResolvedSchemaChange> refreshStoreOnDDL(String sql, String currentDatabase, Position position) throws SchemaStoreException, InvalidSchemaError {
+		return processSQL(sql, currentDatabase, position);
+	}
+
+	@Override
 	public Long getSchemaID() throws SchemaStoreException {
 		return new Long(0);
 	}

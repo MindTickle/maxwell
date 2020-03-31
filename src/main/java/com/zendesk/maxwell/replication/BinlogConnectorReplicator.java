@@ -312,7 +312,7 @@ public class BinlogConnectorReplicator extends RunLoopProcess implements Replica
 	 * @param position The position that the SQL happened at
 	 * @param timestamp The timestamp of the SQL binlog event
 	 */
-	private void processQueryEvent(String dbName, String sql, SchemaStore schemaStore, Position position, Position nextPosition, Long timestamp) throws Exception {
+	private void processQueryEventBackup(String dbName, String sql, SchemaStore schemaStore, Position position, Position nextPosition, Long timestamp) throws Exception {
 		List<ResolvedSchemaChange> changes = schemaStore.processSQL(sql, dbName, position);
 		Long schemaId = getSchemaId();
 
@@ -329,6 +329,18 @@ public class BinlogConnectorReplicator extends RunLoopProcess implements Replica
 				producer.push(ddl);
 			}
 		}
+
+		tableCache.clear();
+	}
+
+	private void processQueryEvent(String dbName, String sql, SchemaStore schemaStore, Position position, Position nextPosition, Long timestamp) throws Exception {
+		LOGGER.info("called processQueryEvent, before restore");
+		schemaStore.refreshStoreOnDDL(sql, dbName, position);
+		LOGGER.info("finished restoring");
+		Long schemaId = getSchemaId();
+
+		if ( bootstrapper != null)
+			bootstrapper.setCurrentSchemaID(schemaId);
 
 		tableCache.clear();
 	}

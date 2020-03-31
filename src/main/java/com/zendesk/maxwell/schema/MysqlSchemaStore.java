@@ -117,6 +117,16 @@ public class MysqlSchemaStore extends AbstractSchemaStore implements SchemaStore
 		return resolvedSchemaChanges;
 	}
 
+	@Override
+	public List<ResolvedSchemaChange> refreshStoreOnDDL(String sql, String currentDatabase, Position position) throws SchemaStoreException, InvalidSchemaError {
+		try {
+			savedSchema = captureAndSaveSchema();
+		} catch (SQLException e) {
+			throw new SchemaStoreException(e);
+		}
+		return null;
+	}
+
 	private Long saveSchema(Schema updatedSchema, List<ResolvedSchemaChange> changes, Position p) throws SQLException {
 		if ( readOnly )
 			return null;

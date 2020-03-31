@@ -28,6 +28,8 @@ public interface SchemaStore {
 	 */
 	List<ResolvedSchemaChange> processSQL(String sql, String currentDatabase, Position position) throws SchemaStoreException, InvalidSchemaError;
 
+	List<ResolvedSchemaChange> refreshStoreOnDDL(String sql, String currentDatabase, Position position) throws SchemaStoreException, InvalidSchemaError;
+
 	/**
 	 * Retrieve current schema id
 	 *

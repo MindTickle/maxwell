@@ -1,0 +1,1073 @@
+-------------------------------------------------------------------------------
+Test set: com.zendesk.maxwell.MaxwellIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 53, Failures: 18, Errors: 2, Skipped: 1, Time elapsed: 51.49 sec <<< FAILURE!
+testCharsets(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.694 sec  <<< ERROR!
+java.sql.SQLException: Incorrect string value: '\xEF\xBF\xBD\xEF\xBF\xBD...' for column 'gbk' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1335)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2108)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1245)
+	at com.zendesk.maxwell.MysqlIsolatedServer.execute(MysqlIsolatedServer.java:183)
+	at com.zendesk.maxwell.MysqlIsolatedServer.executeList(MysqlIsolatedServer.java:202)
+	at com.zendesk.maxwell.MaxwellTestSupport$1.afterReplicatorStart(MaxwellTestSupport.java:150)
+	at com.zendesk.maxwell.MaxwellTestSupport.getRowsWithReplicator(MaxwellTestSupport.java:221)
+	at com.zendesk.maxwell.MaxwellTestSupport.getRowsWithReplicator(MaxwellTestSupport.java:160)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:68)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testCharsets(MaxwellIntegrationTest.java:586)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testLatin1JSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.422 sec  <<< ERROR!
+java.sql.SQLException: Incorrect string value: '\xEF\xBF\xBD\xEF\xBF\xBD...' for column 'textcol' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1335)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2108)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1245)
+	at com.zendesk.maxwell.MysqlIsolatedServer.execute(MysqlIsolatedServer.java:183)
+	at com.zendesk.maxwell.MysqlIsolatedServer.executeList(MysqlIsolatedServer.java:202)
+	at com.zendesk.maxwell.MaxwellTestSupport$1.afterReplicatorStart(MaxwellTestSupport.java:150)
+	at com.zendesk.maxwell.MaxwellTestSupport.getRowsWithReplicator(MaxwellTestSupport.java:221)
+	at com.zendesk.maxwell.MaxwellTestSupport.getRowsWithReplicator(MaxwellTestSupport.java:160)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:68)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testLatin1JSON(MaxwellIntegrationTest.java:518)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testRunMinimalBinlog(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.914 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test, table=test_table, type=insert, data={id=1, a=avalue}}
+{database=test, table=test_table, type=insert, data={id=2, a=avalue2, b=bvalue2}}
+{database=test, table=test_table, type=update, data={id=2, a=avalue3}}
+{database=test, table=test_table_2, type=insert, data={id=1, i1=555, i2=777}}
+{database=test, table=test_table_2, type=update, data={id=1, i3=444}}
+
+ in:
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, type=insert, data={id=1, a=avalue}}
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, type=insert, data={id=2, a=avalue2, b=bvalue2}}
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, type=update, data={a=avalue3, id=2}}
+{database=test, table=test_table_2, tickledb_cdc_source_id=test.test_table_2, type=insert, data={id=1, i1=555, i2=777}}
+{database=test, table=test_table_2, tickledb_cdc_source_id=test.test_table_2, type=update, data={i3=444, id=1}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testRunMinimalBinlog(MaxwellIntegrationTest.java:485)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBit(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.917 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=bit_db, table=test_bit, type=insert, data={id=1, bit_field=3}}
+{database=bit_db, table=test_bit, type=insert, data={id=2, bit_field=63}}
+{database=bit_db, table=test_bit, type=insert, data={id=3, bit_field=409832983}}
+{database=bit_db, table=test_bit, type=insert, data={id=4, bit_field=18446744073709551615}}
+{database=bit_db, table=test_bit, type=insert, data={id=5, bit_field=5461}}
+{database=bit_db, table=test_bit2, type=insert, data={id=1, bit_field=3}}
+{database=bit_db, table=test_bit3, type=insert, data={id=1, bit_field=13929}}
+{database=bit_db, table=test_bit4, type=insert, data={id=1, bit_field=14913110}}
+
+ in:
+{database=bit_db, table=test_bit, tickledb_cdc_source_id=bit_db.test_bit, type=insert, data={id=1, bit_field=3}}
+{database=bit_db, table=test_bit, tickledb_cdc_source_id=bit_db.test_bit, type=insert, data={id=2, bit_field=63}}
+{database=bit_db, table=test_bit, tickledb_cdc_source_id=bit_db.test_bit, type=insert, data={id=3, bit_field=409832983}}
+{database=bit_db, table=test_bit, tickledb_cdc_source_id=bit_db.test_bit, type=insert, data={id=4, bit_field=18446744073709551615}}
+{database=bit_db, table=test_bit, tickledb_cdc_source_id=bit_db.test_bit, type=insert, data={id=5, bit_field=5461}}
+{database=bit_db, table=test_bit2, tickledb_cdc_source_id=bit_db.test_bit2, type=insert, data={id=1, bit_field=3}}
+{database=bit_db, table=test_bit3, tickledb_cdc_source_id=bit_db.test_bit3, type=insert, data={id=1, bit_field=13929}}
+{database=bit_db, table=test_bit4, tickledb_cdc_source_id=bit_db.test_bit4, type=insert, data={id=1, bit_field=14913110}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testBit(MaxwellIntegrationTest.java:560)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testGIS(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.889 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=gis_db, table=test_gis, type=insert, data={id=1, g=POINT (3 2)}}
+{database=gis_db, table=test_gis, type=insert, data={id=2, g=GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (0 1, 1 2, 2 3, 3 4))}}
+
+ in:
+{database=gis_db, table=test_gis, tickledb_cdc_source_id=gis_db.test_gis, type=insert, data={id=1, g=POINT (3 2)}}
+{database=gis_db, table=test_gis, tickledb_cdc_source_id=gis_db.test_gis, type=insert, data={id=2, g=GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (0 1, 1 2, 2 3, 3 4))}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testGIS(MaxwellIntegrationTest.java:591)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testEnumJSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.962 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=enum_db, table=test_enums, type=insert, data={id=1, enum_field=bar}}
+{database=enum_db, table=test_enums, type=insert, data={id=2, enum_field=baz}}
+{database=enum_db, table=test_enums, type=insert, data={id=3, enum_field=foo}}
+
+ in:
+{database=enum_db, table=test_enums, tickledb_cdc_source_id=enum_db.test_enums, type=insert, data={id=1, enum_field=bar}}
+{database=enum_db, table=test_enums, tickledb_cdc_source_id=enum_db.test_enums, type=insert, data={id=2, enum_field=baz}}
+{database=enum_db, table=test_enums, tickledb_cdc_source_id=enum_db.test_enums, type=insert, data={id=3, enum_field=foo}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testEnumJSON(MaxwellIntegrationTest.java:513)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBlob(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.938 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=blob_db, table=test_blob, type=insert, data={id=1, blob_field=AAECAw==}}
+{database=blob_db, table=test_binary, type=insert, data={id=1, binary_field=AAECAw==}}
+{database=blob_db, table=test_varbinary, type=insert, data={id=1, varbinary_field=AAECAw==}}
+
+ in:
+{database=blob_db, table=test_blob, tickledb_cdc_source_id=blob_db.test_blob, type=insert, data={id=1, blob_field=AAECAw==}}
+{database=blob_db, table=test_binary, tickledb_cdc_source_id=blob_db.test_binary, type=insert, data={id=1, binary_field=AAECAw==}}
+{database=blob_db, table=test_varbinary, tickledb_cdc_source_id=blob_db.test_varbinary, type=insert, data={id=1, varbinary_field=AAECAw==}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testBlob(MaxwellIntegrationTest.java:555)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testUCS2(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.901 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_ucs2, table=ucs2, type=insert, data={textcol=???????????????????????????????????????????????????????????????????????????}}
+
+ in:
+{database=test_ucs2, table=ucs2, tickledb_cdc_source_id=test_ucs2.ucs2, type=insert, data={textcol=?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testUCS2(MaxwellIntegrationTest.java:581)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testTime(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.957 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=timedb, table=tt, type=insert, data={t=null, small_t=null, dt=0001-01-01 00:00:00.000000, small_dt=null, ts=null}}
+{database=timedb, table=tt, type=insert, data={t=12:23:33.123456, small_t=12:23:33.345, dt=2012-01-01 22:32:34.222222, small_dt=2012-01-01 22:32:34.123, ts=2012-01-01 22:32:34.1234}}
+{database=timedb, table=tt, type=insert, data={t=null, small_t=null, dt=2000-01-01 01:00:00.999999, small_dt=null, ts=null}}
+{database=timedb, table=tt, type=insert, data={t=null, small_t=null, dt=1950-01-01 01:00:00.999999, small_dt=null, ts=null}}
+
+ in:
+{database=timedb, table=tt, tickledb_cdc_source_id=timedb.tt, type=insert, data={t=null, small_t=null, dt=0001-01-01 00:00:00.000000, small_dt=null, ts=null}}
+{database=timedb, table=tt, tickledb_cdc_source_id=timedb.tt, type=insert, data={t=12:23:33.123456, small_t=12:23:33.345, dt=2012-01-01 22:32:34.222222, small_dt=2012-01-01 22:32:34.123, ts=2012-01-01 22:32:34.1234}}
+{database=timedb, table=tt, tickledb_cdc_source_id=timedb.tt, type=insert, data={t=null, small_t=null, dt=2000-01-01 01:00:00.999999, small_dt=null, ts=null}}
+{database=timedb, table=tt, tickledb_cdc_source_id=timedb.tt, type=insert, data={t=null, small_t=null, dt=1950-01-01 01:00:00.999999, small_dt=null, ts=null}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testTime(MaxwellIntegrationTest.java:571)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testCreateSelectJSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 1.053 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_db_create_select, table=test_alike, type=insert, data={id=1, flt=0.5}}
+{database=test_db_create_select, table=test_alike2, type=insert, data={id=1, flt=0.5}}
+
+ in:
+{database=test_db_create_select, table=test_alike, tickledb_cdc_source_id=test_db_create_select.test_alike, type=insert, data={id=1, flt=0.5}}
+{database=test_db_create_select, table=test_alike2, tickledb_cdc_source_id=test_db_create_select.test_alike2, type=insert, data={id=1, flt=0.5}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testCreateSelectJSON(MaxwellIntegrationTest.java:508)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testRunMainJSONTest(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 1.163 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_db_1, table=test_table, type=insert, data={id=1, textcol=test_col_1}}
+{database=test_db_1, table=test_table, type=insert, data={id=2, textcol=test_col_2}}
+{database=test_db_1, table=test_table, type=insert, data={id=3, textcol=test_col_2, datecol=1979-10-01 00:00:00}}
+{database=test_db_1, table=test_table, type=update, data={id=1, textcol=test_col_5, datecol=null}, old={textcol=test_col_1}}
+{database=test_db_1, table=test_table, type=update, data={id=1, textcol=test_col_5, datecol=1979-10-01 00:00:00}, old={datecol=null}}
+{database=test_db_1, table=test_table, type=update, data={id=1, textcol=test_col_5, datecol=1979-10-01 00:00:00, dummycol=5}, old={dummycol=10}}
+{database=test_db_1, table=test_table, type=update, data={id=1, textcol=test_col_5, datecol=1970-01-01 00:00:00}, old={datecol=1979-10-01 00:00:00}}
+{database=test_db_1, table=test_table, type=delete, data={id=1, textcol=test_col_5, datecol=1970-01-01 00:00:00}}
+{database=test_db_1, table=test_table, type=delete, data={id=2, textcol=test_col_2, datecol=null}}
+{database=test_db_1, table=test_table, type=delete, data={id=3, textcol=test_col_2, datecol=1979-10-01 00:00:00}}
+
+ in:
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=insert, data={id=1, textcol=test_col_1}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=insert, data={id=2, textcol=test_col_2}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=insert, data={id=3, datecol=1979-10-01 00:00:00, textcol=test_col_2}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=update, data={id=1, datecol=null, textcol=test_col_5}, old={textcol=test_col_1}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=update, data={id=1, datecol=1979-10-01 00:00:00, textcol=test_col_5}, old={datecol=null}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=update, data={id=1, dummycol=5, datecol=1979-10-01 00:00:00, textcol=test_col_5}, old={dummycol=10}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=update, data={id=1, datecol=1970-01-01 00:00:00, textcol=test_col_5}, old={datecol=1979-10-01 00:00:00}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=delete, data={id=1, datecol=1970-01-01 00:00:00, textcol=test_col_5}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=delete, data={id=2, datecol=null, textcol=test_col_2}}
+{database=test_db_1, table=test_table, tickledb_cdc_source_id=test_db_1.test_table, type=delete, data={id=3, datecol=1979-10-01 00:00:00, textcol=test_col_2}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testRunMainJSONTest(MaxwellIntegrationTest.java:494)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testJavascriptFilters(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 1.238 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test, table=test_table, type=insert, data={id=2, a=BIG BIG WORDS, b=bvalue2}}
+{database=test, table=test_table, type=insert, query=mangled, data={id=3, a=MANGLE, b=null}}
+
+ in:
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, type=insert, data={id=1, a=XYZZY, b=null}}
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, type=insert, data={id=2, a=BIG BIG WORDS, b=bvalue2}}
+{database=test, table=test_table, tickledb_cdc_source_id=test.test_table, query=mangled, type=insert, data={id=3, a=MANGLE, b=null}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testJavascriptFilters(MaxwellIntegrationTest.java:610)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testCreateLikeJSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.969 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_db, table=test_alike2, type=insert, data={id=1, flt=1.5}}
+
+ in:
+{database=test_db, table=test_alike2, tickledb_cdc_source_id=test_db.test_alike2, type=insert, data={id=1, flt=1.5}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testCreateLikeJSON(MaxwellIntegrationTest.java:499)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testRowQueryLogEventsIsOn(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.935 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test_row_query, table=row_query, query=insert into `test_row_query`.`row_query` set id = 10, type=insert, data={id=10}}
+{database=test_row_query, table=row_query, query=insert into `test_row_query`.`row_query` set id = 20 /* comment:insert */, type=insert, data={id=20}}
+{database=test_row_query, table=row_query, query=update `test_row_query`.`row_query` set id = 11 where id = 10, type=update, data={id=11}, old={id=10}}
+{database=test_row_query, table=row_query, query=update `test_row_query`.`row_query` set id = 21 where id = 20 /* comment:update */, type=update, data={id=21}, old={id=20}}
+{database=test_row_query, table=row_query, query=delete from `test_row_query`.`row_query` where id = 11, type=delete, data={id=11}}
+{database=test_row_query, table=row_query, query=delete from `test_row_query`.`row_query` where id = 21 /* comment:delete */, type=delete, data={id=21}}
+
+ in:
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=insert into `test_row_query`.`row_query` set id = 10, type=insert, data={id=10}}
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=insert into `test_row_query`.`row_query` set id = 20 /* comment:insert */, type=insert, data={id=20}}
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=update `test_row_query`.`row_query` set id = 11 where id = 10, type=update, data={id=11}, old={id=10}}
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=update `test_row_query`.`row_query` set id = 21 where id = 20 /* comment:update */, type=update, data={id=21}, old={id=20}}
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=delete from `test_row_query`.`row_query` where id = 11, type=delete, data={id=11}}
+{database=test_row_query, table=row_query, tickledb_cdc_source_id=test_row_query.row_query, query=delete from `test_row_query`.`row_query` where id = 21 /* comment:delete */, type=delete, data={id=21}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testRowQueryLogEventsIsOn(MaxwellIntegrationTest.java:721)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testBignum(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.915 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=long_db, table=test_long, type=insert, data={id=1, long_field=18446744073709551615}}
+
+ in:
+{database=long_db, table=test_long, tickledb_cdc_source_id=long_db.test_long, type=insert, data={id=1, long_field=18446744073709551615}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testBignum(MaxwellIntegrationTest.java:565)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testZeroCreatedAtJSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.917 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=cdb, table=ca, type=insert, data={id=1, ch=a, datecol=0000-00-00 00:00:00}}
+{database=cdb, table=ca, type=insert, data={id=2, ch=a, datecol=0000-00-00 00:00:00}}
+
+ in:
+{database=cdb, table=ca, tickledb_cdc_source_id=cdb.ca, type=insert, data={id=1, datecol=0000-00-00 00:00:00, ch=a}}
+{database=cdb, table=ca, tickledb_cdc_source_id=cdb.ca, type=insert, data={id=2, datecol=0000-00-00 00:00:00, ch=a}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testZeroCreatedAtJSON(MaxwellIntegrationTest.java:529)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testColumnCase(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.97 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=case_columns, table=test_case, type=insert, data={ID=1, bar_FIELD=bar}}
+
+ in:
+{database=case_columns, table=test_case, tickledb_cdc_source_id=case_columns.test_case, type=insert, data={ID=1, bar_FIELD=bar}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testColumnCase(MaxwellIntegrationTest.java:596)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testInvalid(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.942 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=timedb_invalid, table=t, type=insert, data={d=1970-01-01 00:00:00}}
+{database=timedb_invalid, table=t, type=insert, data={d=0000-00-00 00:00:00}}
+{database=timedb_invalid, table=tt, type=insert, data={t=00:00:00.000000, small_t=00:00:00.000, dt=0000-00-00 00:00:00.000000, small_dt=0000-00-00 00:00:00.000, ts=0000-00-00 00:00:00.0000, raw_dt=0000-00-00 00:00:00, dcol=0000-00-00}}
+
+ in:
+{database=timedb_invalid, table=t, tickledb_cdc_source_id=timedb_invalid.t, type=insert, data={d=1970-01-01 00:00:00}}
+{database=timedb_invalid, table=t, tickledb_cdc_source_id=timedb_invalid.t, type=insert, data={d=0000-00-00 00:00:00}}
+{database=timedb_invalid, table=tt, tickledb_cdc_source_id=timedb_invalid.tt, type=insert, data={t=00:00:00.000000, small_t=00:00:00.000, dt=0000-00-00 00:00:00.000000, small_dt=0000-00-00 00:00:00.000, ts=0000-00-00 00:00:00.0000, raw_dt=0000-00-00 00:00:00, dcol=0000-00-00}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testInvalid(MaxwellIntegrationTest.java:577)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testSetJSON(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.992 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=set_db, table=test_sets, type=insert, data={id=1, set_field=[bar, baz]}}
+{database=set_db, table=test_sets, type=insert, data={id=2, set_field=[foo, baz]}}
+{database=set_db, table=test_sets, type=insert, data={id=3, set_field=[foo]}}
+{database=set_db, table=test_sets, type=insert, data={id=4, set_field=[]}}
+{database=set_db, table=test_sets, type=insert, data={id=5, set_field=null}}
+
+ in:
+{database=set_db, table=test_sets, tickledb_cdc_source_id=set_db.test_sets, type=insert, data={id=1, set_field=[bar, baz]}}
+{database=set_db, table=test_sets, tickledb_cdc_source_id=set_db.test_sets, type=insert, data={id=2, set_field=[foo, baz]}}
+{database=set_db, table=test_sets, tickledb_cdc_source_id=set_db.test_sets, type=insert, data={id=3, set_field=[foo]}}
+{database=set_db, table=test_sets, tickledb_cdc_source_id=set_db.test_sets, type=insert, data={id=4, set_field=[]}}
+{database=set_db, table=test_sets, tickledb_cdc_source_id=set_db.test_sets, type=insert, data={id=5, set_field=null}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:109)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testSetJSON(MaxwellIntegrationTest.java:523)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+testJavascriptFiltersInjectRichValues(com.zendesk.maxwell.MaxwellIntegrationTest)  Time elapsed: 0.905 sec  <<< FAILURE!
+java.lang.AssertionError: Did not find:
+{database=test, table=test_table_z, type=insert, data={id=1, a=[1, 2, 3, b, {a=b}], b={a=b}}}
+
+ in:
+{database=test, table=test_table_z, tickledb_cdc_source_id=test.test_table_z, type=insert, data={id=1, a=[1, 2, 3, b, {a=b}], b={a=b}}}
+Expected: is <true>
+     but: was <false>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at com.zendesk.maxwell.MaxwellTestJSON.assertJSON(MaxwellTestJSON.java:54)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTest(MaxwellTestJSON.java:87)
+	at com.zendesk.maxwell.MaxwellTestJSON.runJSONTestFile(MaxwellTestJSON.java:160)
+	at com.zendesk.maxwell.MaxwellTestWithIsolatedServer.runJSON(MaxwellTestWithIsolatedServer.java:113)
+	at com.zendesk.maxwell.MaxwellIntegrationTest.testJavascriptFiltersInjectRichValues(MaxwellIntegrationTest.java:626)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
