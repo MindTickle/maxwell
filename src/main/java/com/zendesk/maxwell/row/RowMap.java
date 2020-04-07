@@ -72,7 +72,7 @@ public class RowMap implements Serializable {
 		this.pkColumns = pkColumns;
 		this.suppressed = false;
 		this.approximateSize = 100L; // more or less 100 bytes of overhead
-		this.tickledbCdcSourceId = database + "." + table;
+		this.tickledbCdcSourceId = database + "_" + table;
 	}
 
 	public RowMap(String type, String database, String table, Long timestampMillis, List<String> pkColumns,
