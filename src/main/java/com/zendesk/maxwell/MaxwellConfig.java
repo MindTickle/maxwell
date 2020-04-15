@@ -369,6 +369,8 @@ public class MaxwellConfig extends AbstractConfig {
 
 	private void parse(String [] argv) {
 		MaxwellOptionParser parser = buildOptionParser();
+		//to deal here, just prepend $ with \ to make it an ordinary character and the CLI won't try to read it as a Env
+		//variable.
 		OptionSet options = parser.parse(argv);
 
 		Properties properties;

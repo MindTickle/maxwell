@@ -41,7 +41,8 @@ public class FilterParser {
 		tokenizer.ordinaryChar('.');
 		tokenizer.ordinaryChar('/');
 		tokenizer.wordChars('_', '_');
-
+		tokenizer.wordChars('$', '$');
+		tokenizer.wordChars('\\', '\\');
 		tokenizer.ordinaryChars('0', '9');
 		tokenizer.wordChars('0', '9');
 
@@ -90,13 +91,10 @@ public class FilterParser {
 				throw new IOException("Unknown filter keyword: " + tokenizer.sval);
 		}
 		tokenizer.nextToken();
-
-
 		skipToken(':');
 		Pattern dbPattern = parsePattern();
 		skipToken('.');
 		Pattern tablePattern = parsePattern();
-
 		if ( tokenizer.ttype == '.' ) {
 			// column-value filter
 			tokenizer.nextToken();
