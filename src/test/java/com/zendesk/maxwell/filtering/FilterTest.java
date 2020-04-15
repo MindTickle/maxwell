@@ -80,6 +80,13 @@ public class FilterTest {
 	}
 
 	@Test
+	public void TestIncludeDbWithSpecialChars() throws Exception {
+		Filter f = new Filter("exclude: *.*, include: row_store\\$load_test\\$tickleDb.*");
+		assertTrue(f.includes("row_store$load_test$tickleDb", "testTable"));
+		assertFalse(f.includes("anything", "else"));
+	}
+
+	@Test
 	public void TestBlacklist() throws Exception {
 		Filter f = new Filter("blacklist: seria.*");
 		assertTrue(f.includes("foo", "bar"));
