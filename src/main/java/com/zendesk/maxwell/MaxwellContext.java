@@ -54,6 +54,7 @@ public class MaxwellContext {
 	private BootstrapController bootstrapController;
 
 	public MaxwellContext(MaxwellConfig config) throws SQLException, URISyntaxException {
+		System.out.println("validating filter");
 		this.config = config;
 		this.config.validate();
 		this.taskManager = new TaskManager();
