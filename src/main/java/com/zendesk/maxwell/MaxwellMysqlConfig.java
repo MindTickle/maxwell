@@ -23,6 +23,7 @@ public class MaxwellMysqlConfig {
 	public String user;
 	public String password;
 	public SSLMode sslMode;
+	public boolean enableHeartbeat;
 	public Map<String, String> jdbcOptions = new HashMap<>();
 	public Integer connectTimeoutMS = 5000;
 
@@ -33,23 +34,28 @@ public class MaxwellMysqlConfig {
 		this.user = null;
 		this.password = null;
 		this.sslMode = null;
+		this.enableHeartbeat = false;
 
 		this.jdbcOptions = new HashMap<>();
 		this.jdbcOptions.put("zeroDateTimeBehavior", "convertToNull");
 		this.jdbcOptions.put("connectTimeout", String.valueOf(connectTimeoutMS));
+		this.jdbcOptions.put("allowPublicKeyRetrieval", "true");
 	}
 
 	public MaxwellMysqlConfig(String host, Integer port, String database, String user, String password,
-			SSLMode sslMode) {
+			SSLMode sslMode, boolean enableHeartbeat) {
+		this();
 		this.host = host;
 		this.port = port;
 		this.database = database;
 		this.user = user;
 		this.password = password;
 		this.sslMode = sslMode;
+		this.enableHeartbeat = enableHeartbeat;
 	}
 
 	public MaxwellMysqlConfig(MaxwellMysqlConfig c) {
+		this();
 		this.host = c.host;
 		this.port = c.port;
 		this.database = c.database;

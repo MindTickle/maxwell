@@ -12,10 +12,10 @@ import com.zendesk.maxwell.recovery.RecoveryInfo;
 import com.zendesk.maxwell.replication.BinlogPosition;
 import com.zendesk.maxwell.errors.DuplicateProcessException;
 import com.zendesk.maxwell.replication.Position;
+import com.zendesk.maxwell.util.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import snaq.db.ConnectionPool;
 
 public class MysqlPositionStore {
 	static final Logger LOGGER = LoggerFactory.getLogger(MysqlPositionStore.class);
@@ -37,7 +37,7 @@ public class MysqlPositionStore {
 		}
 	}
 
-	public void set(Position newPosition) throws SQLException {
+	public void set(Position newPosition) throws SQLException, DuplicateProcessException {
 		if ( newPosition == null )
 			return;
 
@@ -55,10 +55,11 @@ public class MysqlPositionStore {
 				+ "gtid_set = ?, binlog_file = ?, binlog_position=?";
 
 		BinlogPosition binlogPosition = newPosition.getBinlogPosition();
-		try( Connection c = connectionPool.getConnection() ){
+		connectionPool.withSQLRetry(1, (c) -> {
 			PreparedStatement s = c.prepareStatement(sql);
 
-			LOGGER.debug("Writing binlog position to " + c.getCatalog() + ".positions: " + newPosition + ", last heartbeat read: " + heartbeat);
+			LOGGER.debug("Writing binlog position to {}.positions: {}, last heartbeat read: {}",
+					c.getCatalog(), newPosition, heartbeat);
 			s.setLong(1, serverID);
 			s.setString(2, binlogPosition.getGtidSetStr());
 			s.setString(3, binlogPosition.getFile());
@@ -71,7 +72,7 @@ public class MysqlPositionStore {
 			s.setLong(10, binlogPosition.getOffset());
 
 			s.execute();
-		}
+		});
 	}
 
 	public long heartbeat() throws Exception {
@@ -80,10 +81,10 @@ public class MysqlPositionStore {
 		return heartbeatValue;
 	}
 
-	public synchronized void heartbeat(long heartbeatValue) throws Exception {
-		try ( Connection c = connectionPool.getConnection() ) {
+	public synchronized void heartbeat(long heartbeatValue) throws SQLException, DuplicateProcessException {
+		connectionPool.withSQLRetry(1, (c) ->  {
 			heartbeat(c, heartbeatValue);
-		}
+		});
 	}
 
 	/*
@@ -110,7 +111,7 @@ public class MysqlPositionStore {
 		}
 	}
 
-	private void heartbeat(Connection c, long thisHeartbeat) throws SQLException, DuplicateProcessException, InterruptedException {
+	private void heartbeat(Connection c, long thisHeartbeat) throws SQLException, DuplicateProcessException {
 		if ( lastHeartbeat == null ) {
 			PreparedStatement s = c.prepareStatement("SELECT `heartbeat` from `heartbeats` where server_id = ? and client_id = ?");
 			s.setLong(1, serverID);
@@ -134,7 +135,7 @@ public class MysqlPositionStore {
 		s.setString(3, clientID);
 		s.setLong(4, lastHeartbeat);
 
-		LOGGER.debug("writing heartbeat: " + thisHeartbeat + " (last heartbeat written: " + lastHeartbeat + ")");
+		LOGGER.debug("writing heartbeat: {} (last heartbeat written: {})", thisHeartbeat, lastHeartbeat);
 		int nRows = s.executeUpdate();
 		if ( nRows != 1 ) {
 			String msg = String.format(
@@ -156,6 +157,10 @@ public class MysqlPositionStore {
 		if ( !rs.next() )
 			return null;
 
+		return MysqlPositionStore.positionFromResultSet(rs, this.gtidMode);
+	}
+
+	public static Position positionFromResultSet(ResultSet rs, boolean gtidMode) throws SQLException {
 		String gtid = gtidMode ? rs.getString("gtid_set") : null;
 		BinlogPosition pos = new BinlogPosition(
 			gtid,

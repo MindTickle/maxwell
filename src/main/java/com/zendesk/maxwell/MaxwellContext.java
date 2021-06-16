@@ -1,5 +1,7 @@
 package com.zendesk.maxwell;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.health.HealthCheckRegistry;
 import com.zendesk.maxwell.bootstrap.BootstrapController;
 import com.zendesk.maxwell.bootstrap.SynchronousBootstrapper;
 import com.zendesk.maxwell.filtering.Filter;
@@ -9,13 +11,16 @@ import com.zendesk.maxwell.recovery.RecoveryInfo;
 import com.zendesk.maxwell.replication.*;
 import com.zendesk.maxwell.row.RowMap;
 import com.zendesk.maxwell.schema.MysqlPositionStore;
+import com.zendesk.maxwell.schema.MysqlSchemaCompactor;
 import com.zendesk.maxwell.schema.PositionStoreThread;
 import com.zendesk.maxwell.schema.ReadOnlyMysqlPositionStore;
+import com.zendesk.maxwell.util.C3P0ConnectionPool;
+import com.zendesk.maxwell.util.RunLoopProcess;
 import com.zendesk.maxwell.util.StoppableTask;
 import com.zendesk.maxwell.util.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import snaq.db.ConnectionPool;
+import com.zendesk.maxwell.util.ConnectionPool;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,9 +35,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MaxwellContext {
 	static final Logger LOGGER = LoggerFactory.getLogger(MaxwellContext.class);
 
-	private final ConnectionPool replicationConnectionPool;
-	private final ConnectionPool maxwellConnectionPool;
-	private final ConnectionPool rawMaxwellConnectionPool;
+	private ConnectionPool replicationConnectionPool;
+	private ConnectionPool maxwellConnectionPool;
+	private ConnectionPool rawMaxwellConnectionPool;
 	private final ConnectionPool schemaConnectionPool;
 	private final MaxwellConfig config;
 	private final MaxwellMetrics metrics;
@@ -51,38 +56,55 @@ public class MaxwellContext {
 
 	private final HeartbeatNotifier heartbeatNotifier;
 	private final MaxwellDiagnosticContext diagnosticContext;
+
 	private BootstrapController bootstrapController;
+	private Thread bootstrapControllerThread;
+
+	public MetricRegistry metricRegistry;
+	public HealthCheckRegistry healthCheckRegistry;
 
 	public MaxwellContext(MaxwellConfig config) throws SQLException, URISyntaxException {
 		this.config = config;
 		this.config.validate();
 		this.taskManager = new TaskManager();
-		this.metrics = new MaxwellMetrics(config);
 
-		this.replicationConnectionPool = new ConnectionPool("ReplicationConnectionPool", 10, 0, 10,
-				config.replicationMysql.getConnectionURI(false), config.replicationMysql.user, config.replicationMysql.password);
-		this.replicationConnectionPool.setCaching(false);
+		this.metricRegistry = config.metricRegistry;
+		if ( this.metricRegistry == null )
+			this.metricRegistry = new MetricRegistry();
+
+		this.metrics = new MaxwellMetrics(config, this.metricRegistry);
+
+		this.replicationConnectionPool = new C3P0ConnectionPool(
+			config.replicationMysql.getConnectionURI(false),
+			config.replicationMysql.user,
+			config.replicationMysql.password
+		);
+
+		this.replicationConnectionPool.probe();
 
 		if (config.schemaMysql.host == null) {
 			this.schemaConnectionPool = null;
 		} else {
-			this.schemaConnectionPool = new ConnectionPool(
-					"SchemaConnectionPool",
-					10,
-					0,
-					10,
-					config.schemaMysql.getConnectionURI(false),
-					config.schemaMysql.user,
-					config.schemaMysql.password);
+			this.schemaConnectionPool = new C3P0ConnectionPool(
+				config.schemaMysql.getConnectionURI(false),
+				config.schemaMysql.user,
+				config.schemaMysql.password
+			);
+			this.schemaConnectionPool.probe();
 		}
 
-		this.rawMaxwellConnectionPool = new ConnectionPool("RawMaxwellConnectionPool", 1, 2, 100,
-			config.maxwellMysql.getConnectionURI(false), config.maxwellMysql.user, config.maxwellMysql.password);
+		this.rawMaxwellConnectionPool = new C3P0ConnectionPool(
+			config.maxwellMysql.getConnectionURI(false),
+			config.maxwellMysql.user,
+			config.maxwellMysql.password
+		);
+		this.rawMaxwellConnectionPool.probe();
 
-		this.maxwellConnectionPool = new ConnectionPool("MaxwellConnectionPool", 10, 0, 10,
-					config.maxwellMysql.getConnectionURI(), config.maxwellMysql.user, config.maxwellMysql.password);
-		this.maxwellConnectionPool.setCaching(false);
-
+		this.maxwellConnectionPool = new C3P0ConnectionPool(
+			config.maxwellMysql.getConnectionURI(),
+			config.maxwellMysql.user,
+			config.maxwellMysql.password
+		);
 		if ( this.config.initPosition != null )
 			this.initialPosition = this.config.initPosition;
 
@@ -95,6 +117,10 @@ public class MaxwellContext {
 		this.heartbeatNotifier = new HeartbeatNotifier();
 		List<MaxwellDiagnostic> diagnostics = new ArrayList<>(Collections.singletonList(new BinlogConnectorDiagnostic(this)));
 		this.diagnosticContext = new MaxwellDiagnosticContext(config.diagnosticConfig, diagnostics);
+
+		this.healthCheckRegistry = config.healthCheckRegistry;
+		if ( this.healthCheckRegistry == null )
+			this.healthCheckRegistry = new HealthCheckRegistry();
 	}
 
 	public MaxwellConfig getConfig() {
@@ -160,12 +186,20 @@ public class MaxwellContext {
 		}
 	}
 
-	private void shutdown(AtomicBoolean complete) {
+	public void shutdown(AtomicBoolean complete) {
 		try {
 			taskManager.stop(this.error);
+			this.metrics.stop();
+
 			this.replicationConnectionPool.release();
+			this.replicationConnectionPool = null;
+
 			this.maxwellConnectionPool.release();
+			this.maxwellConnectionPool = null;
+
 			this.rawMaxwellConnectionPool.release();
+			this.rawMaxwellConnectionPool = null;
+
 			complete.set(true);
 		} catch (Exception e) {
 			LOGGER.error("Exception occurred during shutdown:", e);
@@ -197,8 +231,9 @@ public class MaxwellContext {
 					// ignore
 				}
 
-				LOGGER.debug("Shutdown complete: " + shutdownComplete.get());
-				if (!shutdownComplete.get()) {
+				final boolean isShutdownComplete = shutdownComplete.get();
+				LOGGER.debug("Shutdown complete: {}", isShutdownComplete);
+				if (!isShutdownComplete) {
 					LOGGER.error("Shutdown stalled - forcefully killing maxwell process");
 					if (self.error != null) {
 						LOGGER.error("Termination reason:", self.error);
@@ -224,6 +259,25 @@ public class MaxwellContext {
 			this.terminationThread = spawnTerminateThread();
 		}
 		return this.terminationThread;
+	}
+
+	public Thread startTask(RunLoopProcess task, String name) {
+		Thread t = new Thread(() -> {
+			try {
+				task.runLoop();
+			} catch (Exception e) {
+				LOGGER.error("exception in thread: " + name, e);
+				try {
+					this.terminate(e);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+		}, name);
+
+		t.start();
+		addTask(task);
+		return t;
 	}
 
 	public Exception getError() {
@@ -332,6 +386,12 @@ public class MaxwellContext {
 			case "sqs":
 				this.producer = new MaxwellSQSProducer(this, this.config.sqsQueueUri);
 				break;
+			case "sns":
+				this.producer = new MaxwellSNSProducer(this, this.config.snsTopic);
+				break;
+			case "nats":
+				this.producer = new NatsProducer(this);
+				break;
 			case "pubsub":
 				this.producer = new MaxwellPubsubProducer(this, this.config.pubsubProjectId, this.config.pubsubTopic, this.config.ddlPubsubTopic);
 				break;
@@ -353,6 +413,9 @@ public class MaxwellContext {
 			case "none":
 				this.producer = new NoneProducer(this);
 				break;
+			case "custom":
+				// if we're here we missed specifying producer factory
+				throw new RuntimeException("Please specify --custom_producer.factory!");
 			default:
 				throw new RuntimeException("Unknown producer type: " + this.config.producerType);
 			}
@@ -370,6 +433,12 @@ public class MaxwellContext {
 			addTask(task);
 		}
 		return this.producer;
+	}
+
+	public void runBootstrapNow() {
+		if ( this.bootstrapControllerThread != null ) {
+			this.bootstrapControllerThread.interrupt();
+		}
 	}
 
 	public synchronized BootstrapController getBootstrapController(Long currentSchemaID) throws IOException {
@@ -390,16 +459,24 @@ public class MaxwellContext {
 			currentSchemaID
 		);
 
-		new Thread(() -> {
-			try {
-				this.bootstrapController.runLoop();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}, "maxwell-bootstrap-controller").start();
+		this.bootstrapControllerThread = this.startTask(this.bootstrapController, "maxwell-bootstrap-controller");
 
-		addTask(this.bootstrapController);
 		return this.bootstrapController;
+	}
+
+	public void startSchemaCompactor() throws SQLException {
+		if ( this.config.maxSchemaDeltas == null )
+			return;
+
+		MysqlSchemaCompactor compactor = new MysqlSchemaCompactor(
+				this.config.maxSchemaDeltas,
+				this.getMaxwellConnectionPool(),
+				this.config.clientID,
+				this.getServerID(),
+				this.getCaseSensitivity()
+		);
+
+		this.startTask(compactor, "maxwell-schema-compactor");
 	}
 
 	public Filter getFilter() {
@@ -408,22 +485,6 @@ public class MaxwellContext {
 
 	public boolean getReplayMode() {
 		return this.config.replayMode;
-	}
-
-	private void probePool( ConnectionPool pool, String uri ) throws SQLException {
-		try (Connection c = pool.getConnection()) {
-			c.createStatement().execute("SELECT 1");
-		} catch (SQLException e) {
-			LOGGER.error("Could not connect to " + uri + ": " + e.getLocalizedMessage());
-			throw (e);
-		}
-	}
-
-	public void probeConnections() throws SQLException, URISyntaxException {
-		probePool(this.rawMaxwellConnectionPool, this.config.maxwellMysql.getConnectionURI(false));
-
-		if ( this.maxwellConnectionPool != this.replicationConnectionPool )
-			probePool(this.replicationConnectionPool, this.config.replicationMysql.getConnectionURI());
 	}
 
 	public void setReplicator(Replicator replicator) {

@@ -3,10 +3,10 @@ package com.zendesk.maxwell.bootstrap;
 import com.zendesk.maxwell.producer.AbstractProducer;
 import com.zendesk.maxwell.row.RowMap;
 import com.zendesk.maxwell.row.RowMapBuffer;
+import com.zendesk.maxwell.util.ConnectionPool;
 import com.zendesk.maxwell.util.RunLoopProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import snaq.db.ConnectionPool;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -54,10 +54,21 @@ public class BootstrapController extends RunLoopProcess  {
 
 	@Override
 	protected void work() throws Exception {
+		try {
+			doWork();
+		} catch ( InterruptedException e ) {
+		} catch ( SQLException e ) {
+			LOGGER.error("got SQLException trying to bootstrap", e);
+		}
+	}
+
+	private void doWork() throws Exception {
 		List<BootstrapTask> tasks = getIncompleteTasks();
 		synchronized(bootstrapMutex) {
 			for ( BootstrapTask task : tasks ) {
-				LOGGER.debug("starting bootstrap task: {}", task.logString());
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("starting bootstrap task: {}", task.logString());
+				}
 				synchronized(completionMutex) {
 					activeTask = task;
 				}
@@ -70,9 +81,8 @@ public class BootstrapController extends RunLoopProcess  {
 				}
 			}
 		}
-		try {
-			Thread.sleep(1000);
-		} catch ( InterruptedException e ) {}
+
+		Thread.sleep(1000);
 	}
 
 	private synchronized Long getCurrentSchemaID() {
@@ -86,7 +96,7 @@ public class BootstrapController extends RunLoopProcess  {
 	private List<BootstrapTask> getIncompleteTasks() throws SQLException {
 		ArrayList<BootstrapTask> list = new ArrayList<>();
 		try ( Connection cx = maxwellConnectionPool.getConnection() ) {
-			PreparedStatement s = cx.prepareStatement("select * from bootstrap where is_complete = 0 and client_id = ? order by id");
+			PreparedStatement s = cx.prepareStatement("select * from bootstrap where is_complete = 0 and client_id = ? and (started_at is null or started_at <= now()) order by isnull(started_at), started_at asc, id asc");
 			s.setString(1, this.clientID);
 
 			ResultSet rs = s.executeQuery();

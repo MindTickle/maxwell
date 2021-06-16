@@ -48,18 +48,20 @@ public abstract class SchemaChange {
 
 	private static final Pattern DELETE_BLACKLIST = Pattern.compile("^\\s*DELETE\\s*FROM", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
+	private static final Pattern CSTYLE_COMMENTS = Pattern.compile("/\\*.*?\\*/", Pattern.DOTALL);
+
 	private static boolean matchesBlacklist(String sql) {
 		// first *include* /*50032 CREATE EVENT */ style sql
 		sql = sql.replaceAll("/\\*!\\d+\\s*(.*)\\*/", "$1");
 
 		// now strip out comments
-		sql = sql.replaceAll("/\\*.*?\\*/", "");
+		sql = CSTYLE_COMMENTS.matcher(sql).replaceAll("");
 		sql = sql.replaceAll("\\-\\-.*", "");
 		sql = sql.replaceAll("^\\s*#.*", "");
 
 		for (Pattern p : SQL_BLACKLIST) {
 			if (p.matcher(sql).find()) {
-				LOGGER.debug("ignoring sql: " + sql);
+				LOGGER.debug("ignoring sql: {}", sql);
 				return true;
 			}
 		}
@@ -81,7 +83,7 @@ public abstract class SchemaChange {
 
 		TokenStream tokens = new CommonTokenStream(lexer);
 
-		LOGGER.debug("SQL_PARSE <- \"" + sql + "\"");
+		LOGGER.debug("SQL_PARSE <- \"{}\"", sql);
 		mysqlParser parser = new mysqlParser(tokens);
 		parser.removeErrorListeners();
 
@@ -90,7 +92,9 @@ public abstract class SchemaChange {
 		ParseTree tree = parser.parse();
 
 		ParseTreeWalker.DEFAULT.walk(listener, tree);
-		LOGGER.debug("SQL_PARSE ->   " + tree.toStringTree(parser));
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("SQL_PARSE ->   {}", tree.toStringTree(parser));
+		}
 		return listener.getSchemaChanges();
 	}
 
@@ -104,13 +108,17 @@ public abstract class SchemaChange {
 				return parseSQL(currentDB, sql);
 			} catch ( ReparseSQLException e ) {
 				sql = e.getSQL();
-				LOGGER.debug("rewrote SQL to " + sql);
+				LOGGER.debug("rewrote SQL to {}", sql);
 				// re-enter loop
 			} catch ( ParseCancellationException e ) {
-				LOGGER.debug("Parse cancelled: " + e);
+				if (LOGGER.isDebugEnabled()) {
+					// we are debug logging the toString message, slf4j will log the stacktrace of a throwable
+					String msg = e.toString();
+					LOGGER.debug("Parse cancelled: {}", msg);
+				}
 				return null;
 			} catch ( MaxwellSQLSyntaxError e) {
-				LOGGER.error("Error parsing SQL: '" + sql + "'");
+				LOGGER.error("Error parsing SQL: '{}'", sql);
 				throw (e);
 			}
 		}

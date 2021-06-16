@@ -138,8 +138,8 @@ public class DDLIntegrationTest extends MaxwellTestWithIsolatedServer {
 	@Test
 	public void testConstraintCheck() throws Exception {
 		String sql[] = {
-				"create TABLE `t` (id int, CHECK(NOW() is not null and 'lfjd()))()' is not null), c varchar(255))",
-				"create TABLE `t2` (id int, CHECK(NOW() is not null), c varchar(255))",
+				"create TABLE `t` (id int, CHECK(LENGTH(c) is not null and 'lfjd()))()' is not null), c varchar(255))",
+				"create TABLE `t2` (id int, CHECK(LENGTH(c) is not null), c varchar(255))",
 				"create table t1 (a int, b int, check (a>b))"
 		};
 
@@ -185,7 +185,8 @@ public class DDLIntegrationTest extends MaxwellTestWithIsolatedServer {
 		String sql[] = {
 			"create TABLE `foo` (id int(11) unsigned primary KEY)",
 			"alter table foo add column foo.a varchar(255)",
-			"alter table foo add column shard_1.foo.b varchar(255)"
+			"alter table foo add column shard_1.foo.b varchar(255)",
+			"alter table foo drop column shard_1.foo.b"
 		};
 
 		testIntegration(sql);
@@ -433,7 +434,6 @@ public class DDLIntegrationTest extends MaxwellTestWithIsolatedServer {
 				"MODIFY User char(16) NOT NULL default '', " +
 				"MODIFY Table_name char(64) NOT NULL default '', " +
 				"MODIFY Column_name char(64) NOT NULL default '', " +
-				"ENGINE=MyISAM, " +
 				"CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin, " +
 				"COMMENT='Column privileges'");
 	}
@@ -588,6 +588,16 @@ public class DDLIntegrationTest extends MaxwellTestWithIsolatedServer {
 			"alter table tt add column c int after a_gets_renamed, change column a a_gets_renamed int"
 		};
 
+		testIntegration(sql);
+	}
+
+	@Test
+	public void testImplicitDatabaseInAlter() throws Exception {
+		String [] sql = {
+			"create database ohgod",
+			"USE ohgod",
+			"ALTER DATABASE CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci"
+		};
 		testIntegration(sql);
 	}
 }

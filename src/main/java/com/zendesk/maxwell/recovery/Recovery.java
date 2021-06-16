@@ -12,9 +12,9 @@ import com.zendesk.maxwell.replication.Position;
 import com.zendesk.maxwell.replication.Replicator;
 import com.zendesk.maxwell.row.HeartbeatRowMap;
 import com.zendesk.maxwell.row.RowMap;
+import com.zendesk.maxwell.util.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import snaq.db.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -58,7 +58,7 @@ public class Recovery {
 			Position position = Position.valueOf(binlogPosition, recoveryInfo.getHeartbeat());
 			Metrics metrics = new NoOpMetrics();
 
-			LOGGER.debug("scanning binlog: " + binlogPosition);
+			LOGGER.debug("scanning binlog: {}", binlogPosition);
 			Replicator replicator = new BinlogConnectorReplicator(
 					this.schemaStore,
 					null,
