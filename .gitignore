@@ -15,3 +15,5 @@ config/*.yml
 .vscode/
 .factorypath
 .sts4-cache/
+target/
+!target/maxwell-1.33.0.jar

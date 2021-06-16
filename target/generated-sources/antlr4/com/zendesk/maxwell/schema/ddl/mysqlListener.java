@@ -1,6 +1,5 @@
-// Generated from com/zendesk/maxwell/schema/ddl/mysql.g4 by ANTLR 4.5
+// Generated from com/zendesk/maxwell/schema/ddl/mysql.g4 by ANTLR 4.8
 package com.zendesk.maxwell.schema.ddl;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -359,16 +358,6 @@ public interface mysqlListener extends ParseTreeListener {
 	 */
 	void exitDrop_column(mysqlParser.Drop_columnContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link mysqlParser#old_col_name}.
-	 * @param ctx the parse tree
-	 */
-	void enterOld_col_name(mysqlParser.Old_col_nameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link mysqlParser#old_col_name}.
-	 * @param ctx the parse tree
-	 */
-	void exitOld_col_name(mysqlParser.Old_col_nameContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link mysqlParser#modify_column}.
 	 * @param ctx the parse tree
 	 */
@@ -498,6 +487,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAlter_ordering_column(mysqlParser.Alter_ordering_columnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#full_column_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterFull_column_name(mysqlParser.Full_column_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#full_column_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitFull_column_name(mysqlParser.Full_column_nameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#column_definition}.
 	 * @param ctx the parse tree
@@ -699,6 +698,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 */
 	void exitNow_function(mysqlParser.Now_functionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysqlParser#now_function_length}.
+	 * @param ctx the parse tree
+	 */
+	void enterNow_function_length(mysqlParser.Now_function_lengthContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#now_function_length}.
+	 * @param ctx the parse tree
+	 */
+	void exitNow_function_length(mysqlParser.Now_function_lengthContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysqlParser#current_timestamp_length}.
 	 * @param ctx the parse tree
 	 */
@@ -798,6 +807,16 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAlter_database_definition(mysqlParser.Alter_database_definitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#create_option}.
+	 * @param ctx the parse tree
+	 */
+	void enterCreate_option(mysqlParser.Create_optionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#create_option}.
+	 * @param ctx the parse tree
+	 */
+	void exitCreate_option(mysqlParser.Create_optionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#create_database}.
 	 * @param ctx the parse tree
@@ -1108,6 +1127,26 @@ public interface mysqlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCreation_union(mysqlParser.Creation_unionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#creation_encryption}.
+	 * @param ctx the parse tree
+	 */
+	void enterCreation_encryption(mysqlParser.Creation_encryptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#creation_encryption}.
+	 * @param ctx the parse tree
+	 */
+	void exitCreation_encryption(mysqlParser.Creation_encryptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysqlParser#creation_start_transaction}.
+	 * @param ctx the parse tree
+	 */
+	void enterCreation_start_transaction(mysqlParser.Creation_start_transactionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysqlParser#creation_start_transaction}.
+	 * @param ctx the parse tree
+	 */
+	void exitCreation_start_transaction(mysqlParser.Creation_start_transactionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysqlParser#index_definition}.
 	 * @param ctx the parse tree

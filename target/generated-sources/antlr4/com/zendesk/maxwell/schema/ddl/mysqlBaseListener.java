@@ -1,8 +1,7 @@
-// Generated from com/zendesk/maxwell/schema/ddl/mysql.g4 by ANTLR 4.5
+// Generated from com/zendesk/maxwell/schema/ddl/mysql.g4 by ANTLR 4.8
 package com.zendesk.maxwell.schema.ddl;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -437,18 +436,6 @@ public class mysqlBaseListener implements mysqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOld_col_name(mysqlParser.Old_col_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOld_col_name(mysqlParser.Old_col_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterModify_column(mysqlParser.Modify_columnContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -600,6 +587,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAlter_ordering_column(mysqlParser.Alter_ordering_columnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFull_column_name(mysqlParser.Full_column_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFull_column_name(mysqlParser.Full_column_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -845,6 +844,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNow_function_length(mysqlParser.Now_function_lengthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNow_function_length(mysqlParser.Now_function_lengthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCurrent_timestamp_length(mysqlParser.Current_timestamp_lengthContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -960,6 +971,18 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAlter_database_definition(mysqlParser.Alter_database_definitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCreate_option(mysqlParser.Create_optionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCreate_option(mysqlParser.Create_optionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1332,6 +1355,30 @@ public class mysqlBaseListener implements mysqlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCreation_union(mysqlParser.Creation_unionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCreation_encryption(mysqlParser.Creation_encryptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCreation_encryption(mysqlParser.Creation_encryptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCreation_start_transaction(mysqlParser.Creation_start_transactionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCreation_start_transaction(mysqlParser.Creation_start_transactionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
