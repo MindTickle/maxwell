@@ -43,6 +43,8 @@ table_creation_option:
 	| creation_storage_option
 	| creation_tablespace
 	| creation_union
+	| creation_encryption
+	| creation_start_transaction
 	| partition_by;
 
 
@@ -70,3 +72,6 @@ creation_stats_sample_pages: STATS_SAMPLE_PAGES '='? INTEGER_LITERAL;
 creation_storage_option: STORAGE (DISK | MEMORY | DEFAULT);
 creation_tablespace: TABLESPACE string;
 creation_union: UNION '='? '(' name (',' name)* ')';
+creation_encryption: ENCRYPTION '='? string_literal;
+creation_start_transaction: START TRANSACTION;
+

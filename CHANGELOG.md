@@ -1,5 +1,186 @@
 # Maxwell changelog
 
+### [v1.33.1](https://github.com/zendesk/maxwell/releases/tag/v1.33.1): "la la la la"
+
+
+- properties may now be fetched from a javascript blob in the env
+- RowMap provides access to primary keys
+- fix an odd NPE in mariaDB init
+
+
+### [v1.33.0](https://github.com/zendesk/maxwell/releases/tag/v1.33.0): "tradegy of birds and windows"
+
+
+- Add HTTP endpoint for runtime reconfiguration
+
+
+### [v1.32.0](https://github.com/zendesk/maxwell/releases/tag/v1.32.0): "cmon cmon no one can see you cry"
+
+
+- Amazon SNS producer added, thanks Rober Wittman
+- kafka 2.7.0 supported
+- stackdriver metrics logging available
+
+
+### [v1.31.0](https://github.com/zendesk/maxwell/releases/tag/v1.31.0): "84 tent cabin"
+
+
+- Add producer for NATS streaming server
+
+
+### [v1.30.0](https://github.com/zendesk/maxwell/releases/tag/v1.30.0): "all of this has happened before"
+
+
+- support server-sent heartbeating on the binlog connection via --binlog-heartbeat
+- can connect to rabbitmq by URL, supports SSL connections
+- fix parser bug with multiline SQL
+- target JDK 11 -- we have dropped support for JDK 8
+- ability to send a microsecond timestamp via --output_push_timestamp
+- fixes for odd azure mysql connection failures
+
+
+### [v1.29.2](https://github.com/zendesk/maxwell/releases/tag/v1.29.2): "i now know the meaning of shame"
+
+
+- fix for terrible performance regression in bootstrapping
+
+
+### [v1.29.1](https://github.com/zendesk/maxwell/releases/tag/v1.29.1): "depluralize"
+
+
+- small bugfix release, fixes binlog event type processing in mysql 8
+
+
+### [v1.29.0](https://github.com/zendesk/maxwell/releases/tag/v1.29.0): "i don't know, i don't know, i don't know"
+
+
+- High Availability support via jgroups-raft
+- rework --help text
+
+
+### [v1.28.2](https://github.com/zendesk/maxwell/releases/tag/v1.28.2): "fantasy baseball"
+
+
+- fix for encryption parsing error on table creation
+- some logging around memory usage in RowMapBuffer
+
+
+### [v1.28.1](https://github.com/zendesk/maxwell/releases/tag/v1.28.1): "bootras bootras gallliiiii"
+
+
+- fix http server issue in 1.28.0
+
+
+### [v1.28.0](https://github.com/zendesk/maxwell/releases/tag/v1.28.0): "stardew mania"
+
+
+- schema compaction!  with the new --max_schemas option, maxwell will
+  periodically roll up the `maxwell`.`schemas` table, preventing it from
+  growing infinitely long.
+- fix metricsAgeSloMS calculation
+- support SRID columns
+- fix parsing of complex INDEX(CAST()) statements
+- various dependency bumps
+
+
+### [v1.27.1](https://github.com/zendesk/maxwell/releases/tag/v1.27.1): "red bag?  red bag"
+
+
+- redis producer gets sentinal support
+- fix a double-reconnect race condition
+- file producer honors javascript row-suppression
+- better error messaging when we lack REPLICATION SLAVE privs
+- miscellaneous dependency bumps
+
+
+### [v1.27.0](https://github.com/zendesk/maxwell/releases/tag/v1.27.0): "running water"
+
+
+- better support for empty/null passwords
+- allow bootstrap utility to query replication_host
+- a few library upgrades, notably pubsub and kinesis library
+- bootstrap connection uses jdbc_options properly
+- add logging for when we hit out of sync schema exceptions
+- allow for partitioning by thread_id, thx @gogov
+- fresh and clean documentation
+
+
+### [v1.26.4](https://github.com/zendesk/maxwell/releases/tag/v1.26.4): "No songs here"
+
+ - support now() function with precision
+
+
+### [v1.26.3](https://github.com/zendesk/maxwell/releases/tag/v1.26.3): "the worst song in the goddamn world"
+
+
+- use pooled redis connections, fixes corruption when redis was accessed
+from multiple threads (bootstrap/producer), thanks @lucastex
+- fix date handling of '0000-01-01'
+- fix race condition in binlog reconnect logic
+
+
+### [v1.26.2](https://github.com/zendesk/maxwell/releases/tag/v1.26.2): "dave the butcher"
+
+
+- bootstraps can be scheduled in the future by setting the `started_at`
+  column, thanks @lucastex
+- two mysql 8 fixes; one for a `DEFAULT(function())` parse error, one
+  for supporting DEFAULT ENCRYPTION
+
+
+### [v1.26.1](https://github.com/zendesk/maxwell/releases/tag/v1.26.1): "maybe we can break your ankle / clean and unsuspiciously"
+
+
+- fixes for redis re-connection login, thanks much @lucastex
+
+
+### [v1.26.0](https://github.com/zendesk/maxwell/releases/tag/v1.26.0): "tip the waitress, feed her cocaine habit"
+
+
+- We now support mysql 8's caching_sha2_password authentication scheme
+- support for converting JSON field names to camelCase
+
+
+### [v1.25.3](https://github.com/zendesk/maxwell/releases/tag/v1.25.3): "bye, bolinas"
+
+
+- fixes memory leak in mysql-binlog-connector
+- fixes exceptions that occur when a connection passes wait_timeout
+
+
+### [v1.25.2](https://github.com/zendesk/maxwell/releases/tag/v1.25.2): "love potion #9"
+
+
+- Fixes for a long standing JSON bug in 8.0.19+
+
+
+### [v1.25.1](https://github.com/zendesk/maxwell/releases/tag/v1.25.1): "nowhere to put it"
+
+
+- issue #1457, ALTER DATABASE with implicit database name
+- maxwell now runs on JDK 11 in docker
+- exit with status 2 when we can't find binlog files
+
+
+### [v1.25.0](https://github.com/zendesk/maxwell/releases/tag/v1.25.0): "mah mah mah my corona.  I'm sorry.  I'm sorry."
+
+
+- swap un-maintained snaq.db with C3P0.
+- support eu datadog metrics
+- protect against lost connections during key queries (bootstrapping,
+      heartbeats, postition setting)
+
+
+### [v1.24.2](https://github.com/zendesk/maxwell/releases/tag/v1.24.2): "#shelterinstyle"
+
+
+- bugfix parsing errors: compressed columns, exchange partitions,
+  parenthesis-enclosed default values, `drop column foo.t`.
+- add partition-by-random feature.
+- update jackson-databind to get security patch
+- fix redis channel interpolation on RPUSH
+
+
 ### [v1.24.1](https://github.com/zendesk/maxwell/releases/tag/v1.24.1): "pixies in my head all damn week"
 
 
@@ -1017,6 +1198,7 @@ It also contains a bugfix around server_id handling.
 ### [v0.9.0](https://github.com/zendesk/maxwell/releases/tag/v0.9.0): Vanchi says "eat"
 
 Also, vanchi is so paranoid he's worried immediately about this. 
+
 - mysql 5.6 support (without checksum support, yet)
 - fix a bunch of miscellaneous bugs @akshayi1 found (REAL, BOOL, BOOLEAN types, TRUNCATE TABLE)
 

@@ -17,12 +17,14 @@ public class MaxwellOutputConfig {
 	public boolean includesRowQuery;
 	public boolean includesPrimaryKeys;
 	public boolean includesPrimaryKeyColumns;
+	public boolean includesPushTimestamp;
 	public boolean outputDDL;
 	public List<Pattern> excludeColumns;
 	public EncryptionMode encryptionMode;
 	public String secretKey;
 	public boolean zeroDatesAsNull;
-
+	public String namingStrategy;
+	
 	public MaxwellOutputConfig() {
 		this.includesBinlogPosition = false;
 		this.includesGtidPosition = false;
@@ -34,11 +36,13 @@ public class MaxwellOutputConfig {
 		this.includesRowQuery = false;
 		this.includesPrimaryKeys = false;
 		this.includesPrimaryKeyColumns = false;
+		this.includesPushTimestamp = false;
 		this.outputDDL = false;
 		this.zeroDatesAsNull = false;
 		this.excludeColumns = new ArrayList<>();
 		this.encryptionMode = EncryptionMode.ENCRYPT_NONE;
 		this.secretKey = null;
+		this.namingStrategy = null;
 	}
 
 	public boolean encryptionEnabled() {

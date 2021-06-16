@@ -1,6 +1,7 @@
 package com.zendesk.maxwell;
 
 import com.djdch.log4j.StaticShutdownCallbackRegistry;
+import com.github.shyiko.mysql.binlog.network.ServerException;
 import com.zendesk.maxwell.bootstrap.BootstrapController;
 import com.zendesk.maxwell.producer.AbstractProducer;
 import com.zendesk.maxwell.recovery.Recovery;
@@ -9,9 +10,8 @@ import com.zendesk.maxwell.replication.BinlogConnectorReplicator;
 import com.zendesk.maxwell.replication.Position;
 import com.zendesk.maxwell.replication.Replicator;
 import com.zendesk.maxwell.row.HeartbeatRowMap;
-import com.zendesk.maxwell.schema.MysqlPositionStore;
-import com.zendesk.maxwell.schema.MysqlSchemaStore;
-import com.zendesk.maxwell.schema.SchemaStoreSchema;
+import com.zendesk.maxwell.schema.*;
+import com.zendesk.maxwell.schema.columndef.ColumnDefCastException;
 import com.zendesk.maxwell.util.Logging;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Maxwell implements Runnable {
 	protected MaxwellConfig config;
@@ -34,7 +36,6 @@ public class Maxwell implements Runnable {
 	protected Maxwell(MaxwellContext context) throws SQLException, URISyntaxException {
 		this.config = context.getConfig();
 		this.context = context;
-		this.context.probeConnections();
 	}
 
 	public void run() {
@@ -45,13 +46,17 @@ public class Maxwell implements Runnable {
 		}
 	}
 
+	public void restart() throws Exception {
+		this.context = new MaxwellContext(config);
+		start();
+	}
+
 	public void terminate() {
 		Thread terminationThread = this.context.terminate();
 		if (terminationThread != null) {
 			try {
 				terminationThread.join();
 			} catch (InterruptedException e) {
-				// ignore
 			}
 		}
 	}
@@ -95,6 +100,25 @@ public class Maxwell implements Runnable {
 		return null;
 	}
 
+	private void logColumnCastError(ColumnDefCastException e) throws SQLException, SchemaStoreException {
+		try ( Connection conn = context.getSchemaConnectionPool().getConnection() ) {
+			LOGGER.error("checking for schema inconsistencies in " + e.database + "." + e.table);
+			SchemaCapturer capturer = new SchemaCapturer(conn, context.getCaseSensitivity(), e.database, e.table);
+			Schema recaptured = capturer.capture();
+			Table t = this.replicator.getSchema().findDatabase(e.database).findTable(e.table);
+			List<String> diffs = new ArrayList<>();
+
+			t.diff(diffs, recaptured.findDatabase(e.database).findTable(e.table), "old", "new");
+			if ( diffs.size() == 0 ) {
+				LOGGER.error("no differences found");
+			} else {
+				for ( String diff : diffs ) {
+					LOGGER.error(diff);
+				}
+			}
+		}
+	}
+
 	protected Position getInitialPosition() throws Exception {
 		/* first method:  do we have a stored position for this server? */
 		Position initial = this.context.getInitialPosition();
@@ -102,8 +126,9 @@ public class Maxwell implements Runnable {
 		if (initial == null) {
 
 			/* second method: are we recovering from a master swap? */
-			if ( config.masterRecovery )
+			if ( config.masterRecovery ) {
 				initial = attemptMasterRecovery();
+			}
 
 			/* third method: is there a previous client_id?
 			   if so we have to start at that position or else
@@ -136,10 +161,11 @@ public class Maxwell implements Runnable {
 
 	public String getMaxwellVersion() {
 		String packageVersion = getClass().getPackage().getImplementationVersion();
-		if ( packageVersion == null )
+		if ( packageVersion == null ) {
 			return "??";
-		else
+		} else {
 			return packageVersion;
+		}
 	}
 
 	static String bootString = "Maxwell v%s is booting (%s), starting at %s";
@@ -151,9 +177,10 @@ public class Maxwell implements Runnable {
 	protected void onReplicatorStart() {}
 	protected void onReplicatorEnd() {}
 
-	private void start() throws Exception {
+
+	public void start() throws Exception {
 		try {
-			startInner();
+			this.startInner();
 		} catch ( Exception e) {
 			this.context.terminate(e);
 		} finally {
@@ -192,6 +219,8 @@ public class Maxwell implements Runnable {
 		MysqlSchemaStore mysqlSchemaStore = new MysqlSchemaStore(this.context, initPosition);
 		BootstrapController bootstrapController = this.context.getBootstrapController(mysqlSchemaStore.getSchemaID());
 
+		this.context.startSchemaCompactor();
+
 		if (config.recaptureSchema) {
 			mysqlSchemaStore.captureAndSaveSchema();
 		}
@@ -218,18 +247,26 @@ public class Maxwell implements Runnable {
 
 		context.setReplicator(replicator);
 		this.context.start();
+
+		replicator.startReplicator();
 		this.onReplicatorStart();
 
-		replicator.runLoop();
+		try {
+			replicator.runLoop();
+		} catch ( ColumnDefCastException e ) {
+			logColumnCastError(e);
+		}
 	}
+
 
 	public static void main(String[] args) {
 		try {
 			Logging.setupLogBridging();
 			MaxwellConfig config = new MaxwellConfig(args);
 
-			if ( config.log_level != null )
+			if ( config.log_level != null ) {
 				Logging.setLevel(config.log_level);
+			}
 
 			final Maxwell maxwell = new Maxwell(config);
 
@@ -241,7 +278,13 @@ public class Maxwell implements Runnable {
 				}
 			});
 
-			maxwell.start();
+			LOGGER.info("Starting Maxwell. maxMemory: " + Runtime.getRuntime().maxMemory() + " bufferMemoryUsage: " + config.bufferMemoryUsage);
+
+			if ( config.haMode ) {
+				new MaxwellHA(maxwell, config.jgroupsConf, config.raftMemberID, config.clientID).startHA();
+			} else {
+				maxwell.start();
+			}
 		} catch ( SQLException e ) {
 			// catch SQLException explicitly because we likely don't care about the stacktrace
 			LOGGER.error("SQLException: " + e.getLocalizedMessage());
@@ -251,6 +294,9 @@ public class Maxwell implements Runnable {
 			LOGGER.error("Syntax issue with URI, check for misconfigured host, port, database, or JDBC options (see RFC 2396)");
 			LOGGER.error("URISyntaxException: " + e.getLocalizedMessage());
 			System.exit(1);
+		} catch ( ServerException e ) {
+			LOGGER.error("Maxwell couldn't find the requested binlog, exiting...");
+			System.exit(2);
 		} catch ( Exception e ) {
 			e.printStackTrace();
 			System.exit(1);

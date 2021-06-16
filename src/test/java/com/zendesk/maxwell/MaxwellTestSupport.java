@@ -219,32 +219,35 @@ public class MaxwellTestSupport {
 		}
 
 		callback.afterReplicatorStart(mysql);
+		maxwell.context.runBootstrapNow();
 
 		long finalHeartbeat = maxwell.context.getPositionStore().heartbeat();
 
-		LOGGER.debug("running replicator up to heartbeat: " + finalHeartbeat);
+		LOGGER.debug("running replicator up to heartbeat: {}", finalHeartbeat);
 
 		Long pollTime = 5000L;
 		Position lastPositionRead = null;
 
+		Connection bootstrapCX = mysql.getConnection("maxwell");
 		for ( ;; ) {
 			RowMap row = maxwell.poll(pollTime);
 			pollTime = 500L; // after the first row is received, we go into a tight loop.
 
 			if ( row != null ) {
-				if ( row.toJSON(config.outputConfig) != null ) {
-					LOGGER.debug("getRowsWithReplicator: saw: " + row.toJSON(config.outputConfig));
+				String outputConfigJson = row.toJSON(config.outputConfig);
+				if ( outputConfigJson != null ) {
+					LOGGER.debug("getRowsWithReplicator: saw: {}", outputConfigJson);
 					list.add(row);
 				}
 				lastPositionRead = row.getPosition();
 			}
 
 			boolean replicationComplete = lastPositionRead != null && lastPositionRead.getLastHeartbeatRead() >= finalHeartbeat;
-			boolean bootstrapComplete = getIncompleteBootstrapTaskCount(maxwell, config.clientID) == 0;
+			boolean bootstrapComplete = getIncompleteBootstrapTaskCount(bootstrapCX, config.clientID) == 0;
 			boolean timedOut = !replicationComplete && row == null;
 
 			if (timedOut) {
-				LOGGER.debug("timed out waiting for final row. Last position we saw: " + lastPositionRead);
+				LOGGER.debug("timed out waiting for final row. Last position we saw: {}", lastPositionRead);
 				break;
 			}
 
@@ -293,8 +296,14 @@ public class MaxwellTestSupport {
 
 		ObjectMapper m = new ObjectMapper();
 
+		String currentDB = "shard_1";
 		for ( String alterSQL : alters) {
-			List<SchemaChange> changes = SchemaChange.parse("shard_1", alterSQL);
+			if ( alterSQL.startsWith("USE ") )  {
+				currentDB = alterSQL.replaceFirst("USE ", "");
+				continue;
+			}
+
+			List<SchemaChange> changes = SchemaChange.parse(currentDB, alterSQL);
 			if ( changes != null ) {
 				for ( SchemaChange change : changes ) {
 					ResolvedSchemaChange resolvedChange = change.resolve(topSchema);
@@ -326,16 +335,14 @@ public class MaxwellTestSupport {
 		assumeTrue(server.getVersion().atLeast(minimum));
 	}
 
-	private static int getIncompleteBootstrapTaskCount(Maxwell maxwell, String clientID) throws SQLException {
-		try ( Connection cx = maxwell.context.getMaxwellConnection() ) {
-			PreparedStatement s = cx.prepareStatement("select count(id) from bootstrap where is_complete = 0 and client_id = ?");
-			s.setString(1, clientID);
+	private static int getIncompleteBootstrapTaskCount(Connection cx, String clientID) throws SQLException {
+		PreparedStatement s = cx.prepareStatement("select count(id) from bootstrap where is_complete = 0 and client_id = ?");
+		s.setString(1, clientID);
 
-			ResultSet rs = s.executeQuery();
+		ResultSet rs = s.executeQuery();
 
-			if (rs.next()) {
-				return rs.getInt(1);
-			}
+		if (rs.next()) {
+			return rs.getInt(1);
 		}
 
 		return 0;

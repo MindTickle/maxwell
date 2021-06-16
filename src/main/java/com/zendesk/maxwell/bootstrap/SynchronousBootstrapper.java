@@ -2,6 +2,7 @@ package com.zendesk.maxwell.bootstrap;
 
 import com.zendesk.maxwell.CaseSensitivity;
 import com.zendesk.maxwell.MaxwellMysqlStatus;
+import com.zendesk.maxwell.errors.DuplicateProcessException;
 import com.zendesk.maxwell.producer.MaxwellOutputConfig;
 import com.zendesk.maxwell.MaxwellContext;
 import com.zendesk.maxwell.producer.AbstractProducer;
@@ -11,6 +12,8 @@ import com.zendesk.maxwell.schema.Schema;
 import com.zendesk.maxwell.schema.SchemaCapturer;
 import com.zendesk.maxwell.schema.Table;
 import com.zendesk.maxwell.schema.columndef.ColumnDef;
+import com.zendesk.maxwell.schema.columndef.ColumnDefCastException;
+import com.zendesk.maxwell.schema.columndef.DateColumnDef;
 import com.zendesk.maxwell.schema.columndef.TimeColumnDef;
 import com.zendesk.maxwell.scripting.Scripting;
 import org.slf4j.Logger;
@@ -24,8 +27,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class SynchronousBootstrapper {
+	class BootstrapAbortException extends Exception {
+		public BootstrapAbortException(String message) {
+			super(message);
+		}
+	}
+
 	static final Logger LOGGER = LoggerFactory.getLogger(SynchronousBootstrapper.class);
-	private static final long INSERTED_ROWS_UPDATE_PERIOD_MILLIS = 250;
+	private static final long INSERTED_ROWS_UPDATE_PERIOD_MILLIS = 1000;
 	private final MaxwellContext context;
 
 	private long lastInsertedRowsUpdateTimeMillis = 0;
@@ -36,7 +45,13 @@ public class SynchronousBootstrapper {
 
 
 	public void startBootstrap(BootstrapTask task, AbstractProducer producer, Long currentSchemaID) throws Exception {
-		performBootstrap(task, producer, currentSchemaID);
+		try {
+			performBootstrap(task, producer, currentSchemaID);
+		} catch ( BootstrapAbortException e ) {
+			LOGGER.error("Bootstrap (id={}) aborted: {}", task.id, e.getMessage());
+			setBootstrapRowToCompleted(0, task.id);
+			return;
+		}
 		completeBootstrap(task, producer);
 	}
 
@@ -48,19 +63,39 @@ public class SynchronousBootstrapper {
 		}
 	}
 
-	public void performBootstrap(BootstrapTask task, AbstractProducer producer, Long currentSchemaID) throws Exception {
-		LOGGER.debug("bootstrapping requested for " + task.logString());
+	private Table getTableForTask(BootstrapTask task) throws BootstrapAbortException {
+		Schema schema;
+		try {
+			schema = captureSchemaForBootstrap(task);
+		} catch ( SQLException e ) {
+			throw new BootstrapAbortException(e.getMessage());
+		}
 
-		Schema schema = captureSchemaForBootstrap(task);
-		Database database = findDatabase(schema, task.database);
-		Table table = findTable(task.table, database);
+		Database database = schema.findDatabase(task.database);
+		Table table = database.findTable(task.table);
+
+		if ( table == null ) {
+			String errMsg = String.format(
+				"Couldn't find db/table for %s.%s",
+				task.database, task.table
+			);
+			throw new BootstrapAbortException(errMsg);
+		}
+		return table;
+	}
+
+	public void performBootstrap(BootstrapTask task, AbstractProducer producer, Long currentSchemaID) throws Exception {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("bootstrapping requested for {}", task.logString());
+		}
+
+		Table table = getTableForTask(task);
 
 		producer.push(bootstrapStartRowMap(task, table));
 		LOGGER.info(String.format("bootstrapping started for %s.%s", task.database, task.table));
 
-		try ( Connection connection = getMaxwellConnection();
-			  Connection streamingConnection = getStreamingConnection(task.database)) {
-			setBootstrapRowToStarted(task.id, connection);
+		try ( Connection streamingConnection = getStreamingConnection(task.database)) {
+			setBootstrapRowToStarted(task.id);
 			ResultSet resultSet = getAllRows(task.database, task.table, table, task.whereClause, streamingConnection);
 			int insertedRows = 0;
 			lastInsertedRowsUpdateTimeMillis = 0; // ensure updateInsertedRowsColumn is called at least once
@@ -74,29 +109,32 @@ public class SynchronousBootstrapper {
 					scripting.invoke(row);
 
 				if ( LOGGER.isDebugEnabled() )
-					LOGGER.debug("bootstrapping row : " + row.toJSON());
+					LOGGER.debug("bootstrapping row : {}", row.toJSON());
 
 				producer.push(row);
 				++insertedRows;
-				updateInsertedRowsColumn(insertedRows, task.id, connection);
+
+				updateInsertedRowsColumn(insertedRows, task.id);
 			}
-			setBootstrapRowToCompleted(insertedRows, task.id, connection);
+			setBootstrapRowToCompleted(insertedRows, task.id);
 		} catch ( NoSuchElementException e ) {
 			LOGGER.info("bootstrapping aborted for " + task.logString());
 		}
 	}
 
-	private void updateInsertedRowsColumn(int insertedRows, Long id, Connection connection) throws SQLException, NoSuchElementException {
+	private void updateInsertedRowsColumn(int insertedRows, Long id) throws SQLException, NoSuchElementException, DuplicateProcessException {
 		long now = System.currentTimeMillis();
-		if ( now - lastInsertedRowsUpdateTimeMillis > INSERTED_ROWS_UPDATE_PERIOD_MILLIS ) {
-			String sql = "update `bootstrap` set inserted_rows = ? where id = ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, insertedRows);
-			preparedStatement.setLong(2, id);
-			if ( preparedStatement.executeUpdate() == 0 ) {
-				throw new NoSuchElementException();
-			}
-			lastInsertedRowsUpdateTimeMillis = now;
+		if (now - lastInsertedRowsUpdateTimeMillis > INSERTED_ROWS_UPDATE_PERIOD_MILLIS) {
+			this.context.getMaxwellConnectionPool().withSQLRetry(1, (connection) -> {
+				String sql = "update `bootstrap` set inserted_rows = ? where id = ?";
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, insertedRows);
+				preparedStatement.setLong(2, id);
+				if (preparedStatement.executeUpdate() == 0) {
+					throw new NoSuchElementException();
+				}
+				lastInsertedRowsUpdateTimeMillis = now;
+			});
 		}
 	}
 
@@ -109,12 +147,6 @@ public class SynchronousBootstrapper {
 	protected Connection getStreamingConnection(String databaseName) throws SQLException, URISyntaxException {
 		Connection conn = DriverManager.getConnection(context.getConfig().replicationMysql.getConnectionURI(false), context.getConfig().replicationMysql.user, context.getConfig().replicationMysql.password);
 		conn.setCatalog(databaseName);
-		return conn;
-	}
-
-	protected Connection getMaxwellConnection() throws SQLException {
-		Connection conn = context.getMaxwellConnection();
-		conn.setCatalog(context.getConfig().databaseName);
 		return conn;
 	}
 
@@ -137,20 +169,6 @@ public class SynchronousBootstrapper {
 	public void completeBootstrap(BootstrapTask task, AbstractProducer producer) throws Exception {
 		producer.push(bootstrapEventRowMap("bootstrap-complete", task.database, task.table, new ArrayList<>(), task.comment));
 		LOGGER.info("bootstrapping ended for " + task.logString());
-	}
-
-	private Table findTable(String tableName, Database database) {
-		Table table = database.findTable(tableName);
-		if ( table == null )
-			throw new RuntimeException("Couldn't find table " + tableName);
-		return table;
-	}
-
-	private Database findDatabase(Schema schema, String databaseName) {
-		Database database = schema.findDatabase(databaseName);
-		if ( database == null )
-			throw new RuntimeException("Couldn't find database " + databaseName);
-		return database;
 	}
 
 	private ResultSet getAllRows(String databaseName, String tableName, Table table, String whereClause,
@@ -178,25 +196,38 @@ public class SynchronousBootstrapper {
 	}
 
 	private final String startBootstrapSQL = "update `bootstrap` set started_at=NOW() where id=?";
-	private void setBootstrapRowToStarted(Long id, Connection connection) throws SQLException, NoSuchElementException {
-		PreparedStatement preparedStatement = connection.prepareStatement(startBootstrapSQL);
-		preparedStatement.setLong(1, id);
-		if ( preparedStatement.executeUpdate() == 0) {
-			throw new NoSuchElementException();
-		}
+	private void setBootstrapRowToStarted(Long id) throws SQLException, NoSuchElementException, DuplicateProcessException {
+		this.context.getMaxwellConnectionPool().withSQLRetry(1, (connection) -> {
+			PreparedStatement preparedStatement = connection.prepareStatement(startBootstrapSQL);
+			preparedStatement.setLong(1, id);
+			if ( preparedStatement.executeUpdate() == 0) {
+				throw new NoSuchElementException();
+			}
+		});
 	}
 
 	private final String completeBootstrapSQL = "update `bootstrap` set is_complete=1, inserted_rows=?, completed_at=NOW() where id=?";
-	private void setBootstrapRowToCompleted(int insertedRows, Long id, Connection connection) throws SQLException, NoSuchElementException {
-		PreparedStatement preparedStatement = connection.prepareStatement(completeBootstrapSQL);
-		preparedStatement.setInt(1, insertedRows);
-		preparedStatement.setLong(2, id);
-		if ( preparedStatement.executeUpdate() == 0) {
-			throw new NoSuchElementException();
-		}
+	private void setBootstrapRowToCompleted(int insertedRows, Long id) throws SQLException, NoSuchElementException, DuplicateProcessException {
+		this.context.getMaxwellConnectionPool().withSQLRetry(1, (connection) -> {
+			PreparedStatement preparedStatement = connection.prepareStatement(completeBootstrapSQL);
+			preparedStatement.setInt(1, insertedRows);
+			preparedStatement.setLong(2, id);
+			if (preparedStatement.executeUpdate() == 0) {
+				throw new NoSuchElementException();
+			}
+		});
 	}
 
-	private void setRowValues(RowMap row, ResultSet resultSet, Table table) throws SQLException {
+	private Object getTimestamp(ResultSet resultSet, int columnIndex) throws SQLException {
+		try {
+			return resultSet.getTimestamp(columnIndex);
+		} catch (SQLException e) {
+			LOGGER.error("error trying to deserialize column at index: " + columnIndex);
+			LOGGER.error("raw value:" + resultSet.getObject(columnIndex));
+			throw(e);
+		}
+	}
+	private void setRowValues(RowMap row, ResultSet resultSet, Table table) throws SQLException, ColumnDefCastException {
 		Iterator<ColumnDef> columnDefinitions = table.getColumnList().iterator();
 		int columnIndex = 1;
 		while ( columnDefinitions.hasNext() ) {
@@ -204,8 +235,10 @@ public class SynchronousBootstrapper {
 			Object columnValue;
 
 			// need to explicitly coerce TIME into TIMESTAMP in order to preserve nanoseconds
-			if ( columnDefinition instanceof TimeColumnDef )
-				columnValue = resultSet.getTimestamp(columnIndex);
+			if (columnDefinition instanceof TimeColumnDef)
+				columnValue = getTimestamp(resultSet, columnIndex);
+			else if ( columnDefinition instanceof DateColumnDef)
+				columnValue = resultSet.getString(columnIndex);
 			else
 				columnValue = resultSet.getObject(columnIndex);
 
